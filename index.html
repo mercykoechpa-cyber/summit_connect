@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SummitConnect | Mountain Stories, Super Guides, Groups & Decathlon Gear</title>
+    <meta name="description" content="Discover authentic mountain stories, book verified Super Guides or Hiking Groups, complete Acclimatization Prep ladders, and shop local hiking gear at Decathlon Kenya.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <div class="logo-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                <div class="logo-text">Summit<span>Connect</span></div>
+            </a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#hero" class="nav-link active">Home</a>
+                <a href="#stories" class="nav-link">Climb Stories</a>
+                <a href="#guides" class="nav-link">Guides & Groups</a>
+                <a href="#acclimatization" class="nav-link">Acclimatization Ladder</a>
+                <a href="#gear" class="nav-link">Gear & Decathlon</a>
+                <a href="#quiz" class="nav-link">Readiness Quiz</a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i> <span id="themeToggleText">Dark Mode</span>
+                </button>
+
+                <button class="btn btn-outline" id="openStoryModalBtn">
+                    <i class="fa-solid fa-pen-nib"></i> <span>Share Story</span>
+                </button>
+                <a href="#guides" class="btn btn-primary">
+                    <i class="fa-solid fa-compass"></i> <span>Find Guide / Group</span>
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" style="background-image: url('assets/mt_kenya_hero_1790676045026.png');"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span> East Africa Alpine Community
+            </div>
+            <h1 class="hero-title">Conquer Peaks. Share Stories. <br><span class="gradient-text">Super Guides, Groups & Decathlon Gear.</span></h1>
+            <p class="hero-subtitle">
+                Discover authentic solo & group climb stories, join local hiking groups in Kenya, complete your 5-step acclimatization prep, and rent or buy official Decathlon Quechua mountain gear.
+            </p>
+
+            <!-- Quick Search Bar -->
+            <div class="search-box">
+                <div class="search-input-group">
+                    <i class="fa-solid fa-location-dot search-icon"></i>
+                    <select id="mountainSelect" class="search-select">
+                        <option value="all">All Mountains & Peaks</option>
+                        <option value="mt-kenya">Mount Kenya (4,985m - 5,199m)</option>
+                        <option value="kilimanjaro">Mount Kilimanjaro (5,895m - Tanzania)</option>
+                        <option value="rwenzori">Rwenzori Mountains (5,109m)</option>
+                        <option value="elgon">Mount Elgon (4,321m)</option>
+                        <option value="aberdares">Aberdare Range (3,999m)</option>
+                    </select>
+                </div>
+                <div class="search-input-group">
+                    <i class="fa-solid fa-users search-icon"></i>
+                    <select id="filterTypeSelect" class="search-select">
+                        <option value="all">Everything</option>
+                        <option value="stories">Climber Stories</option>
+                        <option value="guides">Super Guides</option>
+                        <option value="groups">Hiking Groups</option>
+                        <option value="gear">Decathlon & Gear Shops</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary search-btn" id="searchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i> Explore
+                </button>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number">1,420+</div>
+                    <div class="stat-label">Summits Logged</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">85+</div>
+                    <div class="stat-label">Verified Super Guides</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">34</div>
+                    <div class="stat-label">Local Hiking Groups</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Decathlon</div>
+                    <div class="stat-label">Official Gear Partner</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="main-content">
+        <!-- Mountain Stories Section -->
+        <section class="section stories-section" id="stories">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-book-open"></i> Climber Journal & Stories</div>
+                <h2 class="section-title">Authentic Climb Stories</h2>
+                <p class="section-description">
+                    Read unvarnished experiences from solo female & male summiters, guided expeditions, and community hiking groups.
+                </p>
+                <div class="filter-pills" id="storyFilters">
+                    <button class="pill active" data-filter="all">All Stories</button>
+                    <button class="pill" data-filter="solo">Solo Hikes 🧗‍♀️</button>
+                    <button class="pill" data-filter="group">Group Expeditions 👥</button>
+                    <button class="pill" data-filter="mt-kenya">Mt. Kenya</button>
+                    <button class="pill" data-filter="kilimanjaro">Mt. Kilimanjaro</button>
+                    <button class="pill" data-filter="rwenzori">Rwenzori</button>
+                </div>
+            </div>
+
+            <div class="stories-grid" id="storiesGrid">
+                <!-- Story cards rendered via JS -->
+            </div>
+        </section>
+
+        <!-- Super Guides & Hiking Groups Directory Section -->
+        <section class="section guides-section" id="guides">
+            <div class="section-header">
+                <div class="section-tag highlight-tag"><i class="fa-solid fa-shield-halved"></i> Verified Leaders & Communities</div>
+                <h2 class="section-title">Meet Super Guides & Local Hiking Groups</h2>
+                <p class="section-description">
+                    Choose between 1-on-1 private Super Guides or join upcoming community group hikes near Nairobi, Nanyuki, and across Kenya.
+                </p>
+                
+                <!-- Toggle Mode: Guides vs Groups -->
+                <div class="mode-switch-row">
+                    <button class="mode-btn active" id="showGuidesTab"><i class="fa-solid fa-user-check"></i> Super Guides (Private Treks)</button>
+                    <button class="mode-btn" id="showGroupsTab"><i class="fa-solid fa-people-group"></i> Local Hiking Groups (Community Treks)</button>
+                </div>
+
+                <div class="guide-search-bar">
+                    <input type="text" id="guideSearchInput" placeholder="Search guide/group name, location (e.g. Nairobi, Nanyuki)..." class="guide-input">
+                    <select id="guideSpecialtyFilter" class="guide-select">
+                        <option value="all">All Locations / Specialties</option>
+                        <option value="nairobi">Based in Nairobi</option>
+                        <option value="nanyuki">Based in Nanyuki / Mt. Kenya</option>
+                        <option value="mt-kenya-lenana">Point Lenana Trekking</option>
+                        <option value="mt-kenya-batian">Batian Technical Rock Climb</option>
+                        <option value="kilimanjaro-machame">Kilimanjaro Machame/Lemosho</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grid container dynamically swapped between Guides and Groups -->
+            <div class="guides-grid" id="directoryGrid">
+                <!-- Cards rendered via JS -->
+            </div>
+        </section>
+
+        <!-- Acclimatization Ladder Section -->
+        <section class="section acclimatization-section" id="acclimatization">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-stairs"></i> Summit Prep Ladder</div>
+                <h2 class="section-title">Mount Kenya Acclimatization Prep Program</h2>
+                <p class="section-description">
+                    Conquering Point Lenana or Batian requires building altitude endurance. Follow our recommended 5-hike prep ladder in the Aberdares before taking on Mount Kenya!
+                </p>
+            </div>
+
+            <div class="ladder-container">
+                <div class="ladder-step-card">
+                    <div class="step-badge">Hike 1 (Warmup)</div>
+                    <div class="step-info">
+                        <h3>Mount Longonot Crater Trail</h3>
+                        <div class="step-meta"><span><i class="fa-solid fa-mountain"></i> 2,776m Altitude</span> • <span><i class="fa-solid fa-route"></i> 13.5 km Loop</span> • <span>Moderate</span></div>
+                        <p>Perfect single-day cardio warmup to test boot comfort and joint stamina around the volcanic crater rim.</p>
+                    </div>
+                    <div class="step-action"><span class="status-check"><i class="fa-solid fa-check"></i> Recommended</span></div>
+                </div>
+
+                <div class="ladder-step-card">
+                    <div class="step-badge">Hike 2 (Moorland)</div>
+                    <div class="step-info">
+                        <h3>Elephant Hill (Aberdare Range)</h3>
+                        <div class="step-meta"><span><i class="fa-solid fa-mountain"></i> 3,657m Altitude</span> • <span><i class="fa-solid fa-route"></i> 18 km Return</span> • <span>Challenging</span></div>
+                        <p>The gold standard Kenya high-altitude trial. Tests leg endurance through bamboo zones and foggy moorland peak.</p>
+                    </div>
+                    <div class="step-action"><span class="status-check"><i class="fa-solid fa-check"></i> Essential Prep</span></div>
+                </div>
+
+                <div class="ladder-step-card">
+                    <div class="step-badge">Hike 3 (Ridge & Wind)</div>
+                    <div class="step-info">
+                        <h3>Rurimeria Peak (Aberdares)</h3>
+                        <div class="step-meta"><span><i class="fa-solid fa-mountain"></i> 3,860m Altitude</span> • <span><i class="fa-solid fa-route"></i> 15 km Steep</span> • <span>Strenuous</span></div>
+                        <p>Steep tussock grass climb that prepares your cardiovascular system for low-oxygen high-altitude wind chills.</p>
+                    </div>
+                    <div class="step-action"><span class="status-check"><i class="fa-solid fa-check"></i> High Altitude</span></div>
+                </div>
+
+                <div class="ladder-step-card">
+                    <div class="step-badge">Hike 4 (Peak Simulation)</div>
+                    <div class="step-info">
+                        <h3>Mount Satima Summit (Aberdares)</h3>
+                        <div class="step-meta"><span><i class="fa-solid fa-mountain"></i> 4,001m Altitude</span> • <span><i class="fa-solid fa-route"></i> 14 km Ridge</span> • <span>4,000m Milestone</span></div>
+                        <p>Break the 4,000-meter barrier! Breathtaking dragon's teeth rock formations with high-altitude ridge exposure.</p>
+                    </div>
+                    <div class="step-action"><span class="status-check"><i class="fa-solid fa-flag-checkered"></i> Final Milestone</span></div>
+                </div>
+
+                <div class="ladder-step-card climax-card">
+                    <div class="step-badge climax-badge">THE FINAL SUMMIT</div>
+                    <div class="step-info">
+                        <h3>Mount Kenya (Pt. Lenana / Batian)</h3>
+                        <div class="step-meta"><span><i class="fa-solid fa-mountain-sun"></i> 4,985m - 5,199m</span> • <span><i class="fa-solid fa-calendar-check"></i> 5 - 6 Days Expedition</span></div>
+                        <p>Fully acclimatized and prepared for 99.8% summit success alongside your Super Guide or Hiking Group!</p>
+                    </div>
+                    <div class="step-action"><a href="#guides" class="btn btn-primary">Book Final Expedition</a></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gear Checklist & Local Kenya Shops Marketplace Section -->
+        <section class="section gear-section" id="gear">
+            <div class="section-header">
+                <div class="section-tag highlight-tag"><i class="fa-solid fa-shirt"></i> Equipment & Decathlon Kenya Store</div>
+                <h2 class="section-title">Alpine Gear Checklist & Local Store Catalogs</h2>
+                <p class="section-description">
+                    Interactive packing calculator & gear tracker. View active store catalogs and order/rent gear directly from Decathlon Kenya and local outfitters.
+                </p>
+            </div>
+
+            <div class="gear-container-grid">
+                <!-- Checklist Widget -->
+                <div class="gear-checklist-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3><i class="fa-solid fa-list-check" style="color: var(--primary);"></i> Alpine Gear Readiness Calculator</h3>
+                        <span id="gearProgressBadge" style="background: var(--primary-light); color: var(--primary); padding: 4px 10px; border-radius: 12px; font-weight: 700; font-size: 0.8rem;">40% Packed</span>
+                    </div>
+                    <p class="sub-text">Check items as you pack to calculate your trail weight and missing items:</p>
+
+                    <div class="checklist-items" id="checklistContainer">
+                        <label class="check-item">
+                            <input type="checkbox" checked onchange="updateGearCalculator()">
+                            <span class="custom-chk"></span>
+                            <div class="item-text">
+                                <strong>Thermal Base Layers (Merino Wool / Decathlon Quechua)</strong>
+                                <small>Weight: 0.4kg • Essential for night freeze</small>
+                            </div>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" checked onchange="updateGearCalculator()">
+                            <span class="custom-chk"></span>
+                            <div class="item-text">
+                                <strong>Decathlon Trekking Down Jacket (-10°C rated)</strong>
+                                <small>Weight: 0.8kg • High summit wind protection</small>
+                            </div>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" onchange="updateGearCalculator()">
+                            <span class="custom-chk"></span>
+                            <div class="item-text">
+                                <strong>Waterproof Shell Jacket & Rain Pants (Quechua MH500)</strong>
+                                <small>Weight: 0.6kg • Rain & storm protection</small>
+                            </div>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" onchange="updateGearCalculator()">
+                            <span class="custom-chk"></span>
+                            <div class="item-text">
+                                <strong>High-Ankle Waterproof Hiking Boots (Decathlon MH500)</strong>
+                                <small>Weight: 1.2kg • Ankle support on volcanic scree</small>
+                            </div>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" onchange="updateGearCalculator()">
+                            <span class="custom-chk"></span>
+                            <div class="item-text">
+                                <strong>Headlamp (300+ Lumens) + Spare Batteries</strong>
+                                <small>Weight: 0.2kg • Required for 2:00 AM summit push</small>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                        <span id="gearWeightText" style="font-size: 0.88rem; color: var(--text-muted);">Packed Weight: <strong>1.2 kg</strong></span>
+                        <button class="btn btn-outline" style="font-size: 0.85rem;" onclick="openStoreCatalog('shop-decathlon')">Buy Missing Items from Decathlon <i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+
+                <!-- Local Kenya Shops & Decathlon Hub -->
+                <div class="shops-hub-card">
+                    <h3><i class="fa-solid fa-store" style="color: var(--accent-gold);"></i> Verified Gear Catalogs & Rental Outlets</h3>
+                    <p class="sub-text">Click any store to open their full item catalog and reserve equipment:</p>
+
+                    <div class="shop-items-grid" id="shopsGrid">
+                        <!-- Shop items injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mountain Routes & Interactive Elevation Section -->
+        <section class="section routes-section" id="routes">
+            <div class="section-header">
+                <div class="section-tag"><i class="fa-solid fa-route"></i> Route Intelligence</div>
+                <h2 class="section-title">Explore Summit Routes & Altitude Profiles</h2>
+                <p class="section-description">
+                    Compare difficulty, acclimatization days, elevation gain, and interactive elevation charts for top routes.
+                </p>
+            </div>
+
+            <div class="routes-container">
+                <div class="route-tabs" id="routeTabs">
+                    <button class="route-tab active" data-route="sirimon-chogoria">
+                        <span class="route-tab-title">Mt. Kenya: Sirimon - Chogoria</span>
+                        <span class="route-tab-sub">4,985m • 5 Days</span>
+                    </button>
+                    <button class="route-tab" data-route="batian-nelion">
+                        <span class="route-tab-title">Mt. Kenya: Batian Technical</span>
+                        <span class="route-tab-sub">5,199m • Grade IV, 5.9</span>
+                    </button>
+                    <button class="route-tab" data-route="kilimanjaro-machame">
+                        <span class="route-tab-title">Kilimanjaro: Machame Route</span>
+                        <span class="route-tab-sub">5,895m • 7 Days</span>
+                    </button>
+                    <button class="route-tab" data-route="rwenzori-margherita">
+                        <span class="route-tab-title">Rwenzori: Margherita Peak</span>
+                        <span class="route-tab-sub">5,109m • 8 Days</span>
+                    </button>
+                </div>
+
+                <div class="route-detail-card" id="routeDetailCard">
+                    <!-- Dynamic route breakdown & canvas profile -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Summit Readiness Quiz Section -->
+        <section class="section quiz-section" id="quiz">
+            <div class="quiz-glass-card">
+                <div class="quiz-header">
+                    <div class="quiz-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h2>Are You Ready for the Summit?</h2>
+                    <p>Take our 1-minute interactive assessment to calculate your peak readiness score and acclimatization strategy.</p>
+                </div>
+
+                <div class="quiz-stepper" id="quizStepper">
+                    <div class="quiz-step active" id="quizStep1">
+                        <h3>Step 1: Choose Your Target Summit</h3>
+                        <div class="quiz-options grid-3">
+                            <label class="quiz-opt">
+                                <input type="radio" name="targetPeak" value="lenana" checked>
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-mountain"></i>
+                                    <h4>Point Lenana (4,985m)</h4>
+                                    <span>High Altitude Trekking</span>
+                                </div>
+                            </label>
+                            <label class="quiz-opt">
+                                <input type="radio" name="targetPeak" value="uhuru">
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-volcano"></i>
+                                    <h4>Uhuru Peak (5,895m)</h4>
+                                    <span>Ultra Altitude Trekking</span>
+                                </div>
+                            </label>
+                            <label class="quiz-opt">
+                                <input type="radio" name="targetPeak" value="batian">
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-gem"></i>
+                                    <h4>Batian Peak (5,199m)</h4>
+                                    <span>Technical Rock Climb</span>
+                                </div>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary next-quiz-btn" onclick="goToStep(2)">Next: Fitness Level <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+
+                    <div class="quiz-step" id="quizStep2">
+                        <h3>Step 2: Current Fitness & Cardio Base</h3>
+                        <div class="quiz-options grid-3">
+                            <label class="quiz-opt">
+                                <input type="radio" name="fitnessLevel" value="beginner">
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-person-walking"></i>
+                                    <h4>Casual Walker</h4>
+                                    <span>Weekend walks, under 5km runs</span>
+                                </div>
+                            </label>
+                            <label class="quiz-opt">
+                                <input type="radio" name="fitnessLevel" value="moderate" checked>
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-person-running"></i>
+                                    <h4>Regular Active</h4>
+                                    <span>Gym 3x/week, 10km runs</span>
+                                </div>
+                            </label>
+                            <label class="quiz-opt">
+                                <input type="radio" name="fitnessLevel" value="advanced">
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-person-hiking"></i>
+                                    <h4>Endurance Athlete</h4>
+                                    <span>Trail runner, long mountain treks</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="quiz-btn-row">
+                            <button class="btn btn-outline" onclick="goToStep(1)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button class="btn btn-primary" onclick="goToStep(3)">Next: Altitude History <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" id="quizStep3">
+                        <h3>Step 3: High Altitude Experience</h3>
+                        <div class="quiz-options grid-3">
+                            <label class="quiz-opt">
+                                <input type="radio" name="altitudeExp" value="none">
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-tree"></i>
+                                    <h4>Below 2,500m</h4>
+                                    <span>First time at high altitude</span>
+                                </div>
+                            </label>
+                            <label class="quiz-opt">
+                                <input type="radio" name="altitudeExp" value="moderate" checked>
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-cloud-sun"></i>
+                                    <h4>2,500m - 4,000m</h4>
+                                    <span>Hiked Elephant Hill / Aberdares</span>
+                                </div>
+                            </label>
+                            <label class="quiz-opt">
+                                <input type="radio" name="altitudeExp" value="high">
+                                <div class="opt-box">
+                                    <i class="fa-solid fa-snowflake"></i>
+                                    <h4>Above 4,000m</h4>
+                                    <span>Completed previous 4k+ peak</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="quiz-btn-row">
+                            <button class="btn btn-outline" onclick="goToStep(2)"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                            <button class="btn btn-primary" id="calculateQuizBtn">Calculate My Score <i class="fa-solid fa-calculator"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" id="quizResultStep">
+                        <!-- Score calculated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo">
+                    <div class="logo-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                    <div class="logo-text" style="color: white;">Summit<span>Connect</span></div>
+                </a>
+                <p>Connecting alpine storytellers, verified super guides, local hiking groups, and Decathlon gear stores across East Africa.</p>
+                <div class="footer-socials">
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://whatsapp.com" target="_blank" aria-label="WhatsApp Support"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Mountains</h4>
+                <ul>
+                    <li><a href="#stories">Mount Kenya (Batian & Lenana)</a></li>
+                    <li><a href="#stories">Mount Kilimanjaro (Uhuru Peak)</a></li>
+                    <li><a href="#stories">Rwenzori Mountains (Margherita)</a></li>
+                    <li><a href="#stories">Mount Elgon (Wagagai)</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Guides, Groups & Decathlon</h4>
+                <ul>
+                    <li><a href="#guides">Super Guide Verification</a></li>
+                    <li><a href="#guides">Local Hiking Groups Directory</a></li>
+                    <li><a href="#gear">Decathlon Kenya Gear Shop</a></li>
+                    <li><a href="#acclimatization">5-Hike Acclimatization Ladder</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Safety & Support</h4>
+                <ul>
+                    <li><a href="#">Mountain Rescue Hotline: +254 700 000 999</a></li>
+                    <li><a href="#">Acclimatization Protocols</a></li>
+                    <li><a href="#">Leave No Trace Guidelines</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SummitConnect Alpine Platform. Built with passion for mountain lovers.</p>
+        </div>
+    </footer>
+
+    <!-- MODALS -->
+
+    <!-- Store Item Catalog Modal -->
+    <div class="modal-backdrop" id="storeCatalogModal">
+        <div class="modal-card large-modal">
+            <button class="modal-close" id="closeStoreCatalogModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body" id="storeCatalogModalBody">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Full Reader Modal -->
+    <div class="modal-backdrop" id="storyModal">
+        <div class="modal-card large-modal">
+            <button class="modal-close" id="closeStoryModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body" id="storyModalBody">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Super Guide / Hiking Group Profile & Booking Modal -->
+    <div class="modal-backdrop" id="guideModal">
+        <div class="modal-card medium-modal">
+            <button class="modal-close" id="closeGuideModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body" id="guideModalBody">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Story Modal -->
+    <div class="modal-backdrop" id="submitStoryModal">
+        <div class="modal-card medium-modal">
+            <button class="modal-close" id="closeSubmitStoryModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-custom">
+                <i class="fa-solid fa-feather-pointed text-gradient"></i>
+                <h2>Share Your Mountain Climb Story</h2>
+                <p>Inspire fellow climbers by documenting your solo or group summit journey, route notes, and gear advice.</p>
+            </div>
+            <form id="newStoryForm" class="custom-form">
+                <div class="form-grid">
+                    <div class="form-group span-2">
+                        <label>Story Title *</label>
+                        <input type="text" id="storyTitleInput" required placeholder="e.g. Solo Climbing Mt. Kenya's Gorges Valley at Sunrise">
+                    </div>
+                    <div class="form-group">
+                        <label>Climb Type *</label>
+                        <select id="storyTypeSelect" required>
+                            <option value="solo">Solo Hike 🧗‍♀️</option>
+                            <option value="group">Hiking Group Expedition 👥</option>
+                            <option value="guided">Guided Trek (with Super Guide)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Target Mountain *</label>
+                        <select id="storyMountainSelect" required>
+                            <option value="Mt. Kenya">Mount Kenya</option>
+                            <option value="Mt. Kilimanjaro">Mount Kilimanjaro</option>
+                            <option value="Rwenzori">Rwenzori Mountains</option>
+                            <option value="Mt. Elgon">Mount Elgon</option>
+                            <option value="Aberdares">Aberdare Range</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Specific Route</label>
+                        <input type="text" id="storyRouteInput" placeholder="e.g. Chogoria-Sirimon Traverse">
+                    </div>
+                    <div class="form-group">
+                        <label>Climber / Group Name *</label>
+                        <input type="text" id="storyAuthorInput" required placeholder="Your name or hiking group handle">
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (Days)</label>
+                        <input type="number" id="storyDaysInput" value="5" min="1" max="15">
+                    </div>
+                    <div class="form-group span-2">
+                        <label>Your Story & Climb Experience *</label>
+                        <textarea id="storyContentInput" rows="5" required placeholder="Describe the climb day by day, weather, challenges, gear tips, and memorable moments..."></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="cancelSubmitStory">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Publish Story</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
