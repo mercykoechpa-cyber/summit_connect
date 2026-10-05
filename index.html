@@ -29,10 +29,12 @@
                 <a href="#hero" class="nav-link active">Home</a>
                 <a href="#stories" class="nav-link">Climb Stories</a>
                 <a href="#guides" class="nav-link">Guides & Groups</a>
-                <a href="#acclimatization" class="nav-link">Acclimatization Ladder</a>
+                <a href="#acclimatization" class="nav-link">Acclimatization</a>
+                <a href="#accommodations" class="nav-link">Cabins & Camps</a>
                 <a href="#gear" class="nav-link">Gear & Decathlon</a>
                 <a href="#quiz" class="nav-link">Readiness Quiz</a>
                 <a href="#" class="nav-link nav-link-cta" id="listServicesNavBtn">🏔️ List Your Services</a>
+                <a href="#" class="nav-link nav-link-guide" id="guideDashboardNavBtn"><i class="fa-solid fa-gauge-high"></i> Guide Dashboard</a>
             </nav>
 
             <div class="nav-actions">
@@ -151,16 +153,18 @@
                     Choose between 1-on-1 private Super Guides or join upcoming community group hikes near Nairobi, Nanyuki, and across Kenya.
                 </p>
                 
-                <!-- Toggle Mode: Guides vs Groups -->
+                <!-- Toggle Mode: Guides vs Groups vs Women-Only -->
                 <div class="mode-switch-row">
                     <button class="mode-btn active" id="showGuidesTab"><i class="fa-solid fa-user-check"></i> Super Guides (Private Treks)</button>
                     <button class="mode-btn" id="showGroupsTab"><i class="fa-solid fa-people-group"></i> Local Hiking Groups (Community Treks)</button>
+                    <button class="mode-btn mode-btn-women" id="showWomenTab"><i class="fa-solid fa-person-hiking"></i> 🌸 Women-Led Guides & Treks</button>
                 </div>
 
                 <div class="guide-search-bar">
                     <input type="text" id="guideSearchInput" placeholder="Search guide/group name, location (e.g. Nairobi, Nanyuki)..." class="guide-input">
                     <select id="guideSpecialtyFilter" class="guide-select">
                         <option value="all">All Locations / Specialties</option>
+                        <option value="women-only">🌸 Women-Only Expeditions & Guides</option>
                         <option value="nairobi">Based in Nairobi</option>
                         <option value="nanyuki">Based in Nanyuki / Mt. Kenya</option>
                         <option value="mt-kenya-lenana">Point Lenana Trekking</option>
@@ -239,6 +243,31 @@
             </div>
         </section>
 
+        <!-- Mountain Cabins & Wilderness Campsites Section -->
+        <section class="section accommodations-section" id="accommodations">
+            <div class="section-header">
+                <div class="section-tag highlight-tag"><i class="fa-solid fa-house-chimney-window"></i> Mountain Shelters & Lodging</div>
+                <h2 class="section-title">Alpine Cabins, Bunk Huts & Wild Campsites</h2>
+                <p class="section-description">
+                    Hike the trails by day, sleep in alpine comfort by night. Browse catered mountain huts, log cabin bandas, and high-altitude wild campsites across Mount Kenya and Kilimanjaro.
+                </p>
+                
+                <!-- Accommodation Filter Tabs -->
+                <div class="accommodation-filter-row">
+                    <button class="acc-filter-btn active" data-filter="all"><i class="fa-solid fa-bed"></i> All Accommodations (6)</button>
+                    <button class="acc-filter-btn" data-filter="cabin"><i class="fa-solid fa-house-chimney"></i> Alpine Cabins & Huts</button>
+                    <button class="acc-filter-btn" data-filter="campsite"><i class="fa-solid fa-tent"></i> Wild Campsites (Tent Sites)</button>
+                    <button class="acc-filter-btn" data-filter="mt-kenya"><i class="fa-solid fa-mountain"></i> Mount Kenya</button>
+                    <button class="acc-filter-btn" data-filter="kilimanjaro"><i class="fa-solid fa-mountain-sun"></i> Kilimanjaro</button>
+                </div>
+            </div>
+
+            <!-- Accommodations Grid -->
+            <div class="accommodations-grid" id="accommodationsGrid">
+                <!-- Dynamically rendered via JS -->
+            </div>
+        </section>
+
         <!-- Gear Checklist & Local Kenya Shops Marketplace Section -->
         <section class="section gear-section" id="gear">
             <div class="section-header">
@@ -258,48 +287,73 @@
                     </div>
                     <p class="sub-text">Check items as you pack to calculate your trail weight and missing items:</p>
 
-                    <div class="checklist-items" id="checklistContainer">
-                        <label class="check-item">
+                <div class="checklist-items" id="checklistContainer">
+
+                        <!-- Location picker for smart affiliate -->
+                        <div class="location-picker-row">
+                            <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i>
+                            <span>Your location:</span>
+                            <select id="userLocationSelect" class="guide-select" style="flex:1; padding:6px 10px; font-size:0.85rem;" onchange="updateAllAffiliateLinks()">
+                                <option value="nairobi">Nairobi (CBD / Westlands)</option>
+                                <option value="nanyuki">Nanyuki / Mt. Kenya Gate</option>
+                                <option value="mombasa">Mombasa</option>
+                                <option value="eldoret">Eldoret / Rift Valley</option>
+                                <option value="kampala">Kampala, Uganda</option>
+                                <option value="international">International</option>
+                            </select>
+                        </div>
+
+                        <label class="check-item" data-item="thermal">
                             <input type="checkbox" checked onchange="updateGearCalculator()">
                             <span class="custom-chk"></span>
+                            <img src="assets/gear_thermal_base.jpg" class="gear-thumb" alt="Thermal Base Layer">
                             <div class="item-text">
                                 <strong>Thermal Base Layers (Merino Wool / Decathlon Quechua)</strong>
                                 <small>Weight: 0.4kg • Essential for night freeze</small>
+                                <div class="affiliate-links" id="aff-thermal"></div>
                             </div>
                         </label>
-                        <label class="check-item">
+                        <label class="check-item" data-item="jacket">
                             <input type="checkbox" checked onchange="updateGearCalculator()">
                             <span class="custom-chk"></span>
+                            <img src="assets/gear_down_jacket.jpg" class="gear-thumb" alt="Down Jacket">
                             <div class="item-text">
                                 <strong>Decathlon Trekking Down Jacket (-10°C rated)</strong>
                                 <small>Weight: 0.8kg • High summit wind protection</small>
+                                <div class="affiliate-links" id="aff-jacket"></div>
                             </div>
                         </label>
-                        <label class="check-item">
+                        <label class="check-item" data-item="shell">
                             <input type="checkbox" onchange="updateGearCalculator()">
                             <span class="custom-chk"></span>
+                            <img src="assets/gear_shell_jacket.jpg" class="gear-thumb" alt="Shell Jacket">
                             <div class="item-text">
                                 <strong>Waterproof Shell Jacket & Rain Pants (Quechua MH500)</strong>
                                 <small>Weight: 0.6kg • Rain & storm protection</small>
+                                <div class="affiliate-links" id="aff-shell"></div>
                             </div>
                         </label>
-                        <label class="check-item">
+                        <label class="check-item" data-item="boots">
                             <input type="checkbox" onchange="updateGearCalculator()">
                             <span class="custom-chk"></span>
+                            <img src="assets/gear_hiking_boots.jpg" class="gear-thumb" alt="Hiking Boots">
                             <div class="item-text">
                                 <strong>High-Ankle Waterproof Hiking Boots (Decathlon MH500)</strong>
                                 <small>Weight: 1.2kg • Ankle support on volcanic scree</small>
+                                <div class="affiliate-links" id="aff-boots"></div>
                             </div>
                         </label>
-                        <label class="check-item">
+                        <label class="check-item" data-item="headlamp">
                             <input type="checkbox" onchange="updateGearCalculator()">
                             <span class="custom-chk"></span>
+                            <img src="assets/gear_headlamp.jpg" class="gear-thumb" alt="Headlamp">
                             <div class="item-text">
                                 <strong>Headlamp (300+ Lumens) + Spare Batteries</strong>
                                 <small>Weight: 0.2kg • Required for 2:00 AM summit push</small>
+                                <div class="affiliate-links" id="aff-headlamp"></div>
                             </div>
                         </label>
-                    </div>
+                </div>
 
                     <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                         <span id="gearWeightText" style="font-size: 0.88rem; color: var(--text-muted);">Packed Weight: <strong>1.2 kg</strong></span>
@@ -747,6 +801,174 @@
                     <i class="fa-solid fa-lock"></i> Pay Securely with Paystack
                 </button>
                 <p style="margin-top:12px; font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-shield-halved"></i> 256-bit SSL encryption. Your payment is secure.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ GUIDE DASHBOARD MODAL ============ -->
+    <div class="modal-backdrop" id="guideDashboardModal">
+        <div class="modal-card modal-card-wide">
+            <button class="modal-close" id="closeGuideDashboardModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body">
+                <div class="dashboard-header-banner">
+                    <div class="dashboard-title-wrap">
+                        <div class="modal-icon-badge" style="margin:0;"><i class="fa-solid fa-mountain-city"></i></div>
+                        <div>
+                            <h2>Super Guide Portal & Dashboard</h2>
+                            <p style="color:var(--text-muted); font-size:0.92rem;">Update your mountain credentials, photos, rates & women-led trek badges.</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-switcher">
+                        <label style="font-size:0.82rem; font-weight:700; color:var(--text-muted);">Switch Guide Profile:</label>
+                        <select id="guideProfileSelector" class="guide-select" style="padding:6px 12px; font-size:0.88rem;">
+                            <!-- Populated via JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="dashboard-layout-grid">
+                    <!-- Form side -->
+                    <form id="guideDashboardForm" class="dashboard-form">
+                        <h4 class="form-subheading"><i class="fa-solid fa-id-card"></i> Guide Identity & Bio</h4>
+                        
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Guide Full Name *</label>
+                                <input type="text" id="gd_name" required class="guide-input" placeholder="e.g. Joseph Njuguna">
+                            </div>
+                            <div class="form-group">
+                                <label>Tagline / Specialty Title *</label>
+                                <input type="text" id="gd_tagline" required class="guide-input" placeholder="e.g. Lead Alpine & Altitude Specialist">
+                            </div>
+                            <div class="form-group">
+                                <label>Base Location *</label>
+                                <select id="gd_location" class="guide-select" required>
+                                    <option value="nanyuki">Nanyuki / Mt. Kenya Base</option>
+                                    <option value="nairobi">Based in Nairobi</option>
+                                    <option value="moshi">Moshi / Kilimanjaro Base</option>
+                                    <option value="rift-valley">Rift Valley / Nakuru</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Daily Fee / Rate *</label>
+                                <input type="text" id="gd_dailyRate" required class="guide-input" placeholder="e.g. $180 / day or KSh 25,000 / trek">
+                            </div>
+                            <div class="form-group">
+                                <label>Years of Mountain Experience *</label>
+                                <input type="number" id="gd_yearsExp" required min="1" max="40" value="8" class="guide-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Verified Summits Logged *</label>
+                                <input type="number" id="gd_summits" required min="1" max="500" value="48" class="guide-input">
+                            </div>
+                        </div>
+
+                        <!-- Women-Only Certification Toggle -->
+                        <div class="women-toggle-banner">
+                            <div class="women-toggle-info">
+                                <i class="fa-solid fa-venus" style="color:#ec4899; font-size:1.4rem;"></i>
+                                <div>
+                                    <strong>Female Mountain Guide & Women-Only Treks Leader</strong>
+                                    <p style="font-size:0.82rem; margin:0; color:var(--text-muted);">Display the "🌸 Verified Female Guide" badge and feature in all-women expeditions.</p>
+                                </div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="gd_isWomenGuide">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="form-group" style="margin-top:14px;">
+                            <label>Profile Photo URL</label>
+                            <div style="display:flex; gap:10px;">
+                                <input type="text" id="gd_photoUrl" class="guide-input" placeholder="Paste image link or choose sample...">
+                                <button type="button" class="btn btn-outline" id="gd_useSamplePhotoBtn" style="white-space:nowrap; font-size:0.85rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Preset Avatar</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Guide Bio & Climbing Philosophy</label>
+                            <textarea id="gd_bio" rows="3" class="guide-input" placeholder="Share your summit history, safety protocol, and acclimatization approach..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Certifications (comma separated)</label>
+                            <input type="text" id="gd_certifications" class="guide-input" placeholder="e.g. Wilderness First Responder (WFR), KWS Licensed Alpine Guide, Leave No Trace">
+                        </div>
+
+                        <div class="form-actions" style="margin-top:20px; display:flex; gap:12px;">
+                            <button type="submit" class="btn btn-primary" style="flex:1;"><i class="fa-solid fa-floppy-disk"></i> Save & Publish Profile</button>
+                            <button type="button" class="btn btn-outline" id="closeGuideDashboardBtn">Cancel</button>
+                        </div>
+                    </form>
+
+                    <!-- Live Preview Side -->
+                    <div class="dashboard-preview-pane">
+                        <div class="preview-header-label"><i class="fa-solid fa-eye"></i> Live Directory Preview</div>
+                        <div id="gdLiveCardPreview" class="guide-card-preview-wrap">
+                            <!-- Live interactive card preview -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ ACCOMMODATION BOOKING MODAL ============ -->
+    <div class="modal-backdrop" id="accommodationBookingModal">
+        <div class="modal-card" style="max-width:520px;">
+            <button class="modal-close" id="closeAccomModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body">
+                <div class="modal-icon-badge" style="background:var(--primary-light); color:var(--primary);"><i class="fa-solid fa-house-chimney"></i></div>
+                <h2 id="ab_title" style="text-align:center; margin-bottom:4px;">Reserve Mountain Shelter</h2>
+                <p id="ab_subtitle" style="text-align:center; color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Mount Kenya Alpine Hut Bunk & Campsite Booking</p>
+
+                <form id="accommodationBookingForm">
+                    <input type="hidden" id="ab_stayId">
+                    <div class="form-group">
+                        <label>Your Name *</label>
+                        <input type="text" id="ab_name" required placeholder="e.g. David Mwangi" class="guide-input">
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>WhatsApp / Phone Number *</label>
+                            <input type="tel" id="ab_phone" required placeholder="0712 345 678" class="guide-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="ab_email" placeholder="david@email.com" class="guide-input">
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Check-in Date *</label>
+                            <input type="date" id="ab_date" required class="guide-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Duration (Nights) *</label>
+                            <input type="number" id="ab_nights" min="1" max="14" value="1" required class="guide-input">
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Number of Hikers *</label>
+                            <input type="number" id="ab_guests" min="1" max="25" value="2" required class="guide-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Stay Type</label>
+                            <input type="text" id="ab_typeDisplay" readonly class="guide-input" style="background:var(--bg-main);">
+                        </div>
+                    </div>
+                    
+                    <div id="ab_summaryBox" style="background:var(--bg-main); border:1px solid var(--border-color); border-radius:10px; padding:14px; margin:16px 0; font-size:0.9rem;">
+                        <!-- Calculated summary -->
+                    </div>
+
+                    <div class="form-actions" style="display:flex; gap:12px;">
+                        <button type="button" class="btn btn-outline" id="cancelAccomBooking" style="flex:1;">Cancel</button>
+                        <button type="submit" class="btn btn-primary" style="flex:2;"><i class="fa-solid fa-calendar-check"></i> Confirm Reservation</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

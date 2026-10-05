@@ -1767,3 +1767,462 @@ canvas#routeElevationCanvas {
     margin: 0 auto 12px;
 }
 
+/* ==========================================================================
+   GEAR IMAGES, LOCATION PICKER & SMART AFFILIATE STYLES
+   ========================================================================== */
+.location-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary-light);
+    border: 1px solid rgba(15, 118, 110, 0.2);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+.location-picker-row span {
+    white-space: nowrap;
+    color: var(--text-heading);
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    transition: var(--transition);
+}
+.check-item:hover {
+    border-color: var(--primary);
+    background: var(--bg-hover);
+}
+.check-item input[type="checkbox"] {
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+.gear-thumb {
+    width: 58px;
+    height: 58px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+.item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.affiliate-links {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.aff-store-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    font-size: 0.82rem;
+}
+.aff-store-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+.aff-delivery-badge {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.aff-delivery-badge.fastest {
+    background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+}
+.aff-buy-btn {
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: var(--transition);
+}
+.aff-buy-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+.aff-buy-btn.amazon {
+    background: #ff9900;
+    color: #111;
+}
+.aff-buy-btn.amazon:hover {
+    background: #e68a00;
+}
+
+/* ==========================================================================
+   WOMEN-ONLY EXPEDITIONS & GUIDES
+   ========================================================================== */
+.mode-btn-women {
+    border: 1.5px solid #ec4899 !important;
+    color: #db2777 !important;
+}
+.mode-btn-women:hover {
+    background: rgba(236, 72, 153, 0.08) !important;
+}
+.mode-btn-women.active {
+    background: linear-gradient(135deg, #ec4899, #be185d) !important;
+    color: #fff !important;
+    border-color: #be185d !important;
+    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+}
+.women-guide-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(190, 24, 93, 0.12));
+    color: #be185d;
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.women-guide-tag {
+    background: rgba(236, 72, 153, 0.1) !important;
+    color: #be185d !important;
+    border: 1px solid rgba(236, 72, 153, 0.25) !important;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   CABINS & CAMPSITES SECTION
+   ========================================================================== */
+.accommodations-section {
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.accommodation-filter-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+.acc-filter-btn {
+    background: var(--bg-main);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 8px 18px;
+    border-radius: 24px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+.acc-filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.acc-filter-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+}
+
+.accommodations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 28px;
+    margin-top: 36px;
+}
+.acc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+.acc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+.acc-image-wrap {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+.acc-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.acc-card:hover .acc-image {
+    transform: scale(1.05);
+}
+.acc-type-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.acc-type-badge.cabin {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+}
+.acc-type-badge.campsite {
+    background: linear-gradient(135deg, #059669, #047857);
+}
+.acc-altitude-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(15, 118, 110, 0.9);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+.acc-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.acc-mountain-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+.acc-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 8px;
+}
+.acc-desc {
+    font-size: 0.88rem;
+    color: var(--text-body);
+    line-height: 1.5;
+    margin-bottom: 14px;
+    flex: 1;
+}
+.acc-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+.acc-amenity-tag {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.acc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+}
+.acc-price-wrap {
+    display: flex;
+    flex-direction: column;
+}
+.acc-price-amount {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.1;
+}
+.acc-price-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   GUIDE DASHBOARD MODAL & LAYOUT
+   ========================================================================== */
+.modal-card-wide {
+    max-width: 1040px !important;
+    width: 95% !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+.dashboard-header-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+.dashboard-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.dashboard-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.dashboard-layout-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 32px;
+    align-items: start;
+}
+@media (max-width: 860px) {
+    .dashboard-layout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.dashboard-preview-pane {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    position: sticky;
+    top: 0;
+}
+.preview-header-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.guide-card-preview-wrap .guide-card {
+    margin: 0;
+    box-shadow: var(--shadow-md);
+}
+
+/* Women-Guide Toggle Banner */
+.women-toggle-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: rgba(236, 72, 153, 0.08);
+    border: 1px solid rgba(236, 72, 153, 0.25);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    margin-top: 14px;
+}
+.women-toggle-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.women-toggle-info strong {
+    color: #be185d;
+    font-size: 0.92rem;
+}
+
+/* Modern Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--border-color);
+    transition: .3s;
+    border-radius: 26px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #ec4899;
+}
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+

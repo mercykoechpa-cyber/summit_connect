@@ -88,7 +88,7 @@ const initialStories = [
 ];
 
 // Sample Dataset for Super Guides (Private Treks)
-const initialGuides = [
+const defaultGuides = [
     {
         id: 'guide-joseph',
         name: 'Joseph Njuguna',
@@ -103,7 +103,27 @@ const initialGuides = [
         image: 'assets/super_guide_joseph_1790676078336.png',
         certifications: ['Wilderness First Responder (WFR)', 'KIFGA Senior Alpine Guide', 'Leave No Trace Master'],
         bio: 'Over 12 years of high-altitude leadership. Summited Mount Kenya 48 times and Kilimanjaro 22 times. Focuses on safe acclimatization pace and private custom treks.',
-        dailyRate: '$180 / day'
+        dailyRate: '$180 / day',
+        isWomenGuide: false,
+        phone: '+254 712 345 678'
+    },
+    {
+        id: 'guide-faith',
+        name: 'Faith Wanjiku',
+        tagline: 'Lead Female Alpine Guide & Founder of Girls on Summits',
+        locationKey: 'nanyuki',
+        locationName: 'Nanyuki & Mt. Kenya Gates',
+        summitsCount: 65,
+        rating: 5.0,
+        reviewCount: 178,
+        mountains: ['Mt. Kenya Point Lenana', 'Batian North Face', 'Kilimanjaro Lemosho'],
+        specialtyKey: 'mt-kenya-lenana',
+        image: 'assets/guide_sarah_1790676128232.png',
+        certifications: ['KWS Licensed Mountain Guide', 'Wilderness First Responder (WFR)', 'Leave No Trace Trainer'],
+        bio: 'Over 8 years guiding solo female climbers, international groups, and women-only summit expeditions. Passionate about empowering women on Africa’s highest peaks with careful hydration and acclimatization pace.',
+        dailyRate: '$190 / day',
+        isWomenGuide: true,
+        phone: '+254 722 987 654'
     },
     {
         id: 'guide-sarah',
@@ -119,12 +139,51 @@ const initialGuides = [
         image: 'assets/guide_sarah_1790676128232.png',
         certifications: ['UIAA Technical Rock Instructor', 'Glacier Rescue Certified', 'WFR'],
         bio: 'Specializing in technical alpine routes. Pitching traditional rock climbs up Batian or navigating ice crevasses on Rwenzori with maximum safety.',
-        dailyRate: '$210 / day'
+        dailyRate: '$210 / day',
+        isWomenGuide: true,
+        phone: '+254 733 456 789'
+    },
+    {
+        id: 'guide-amina',
+        name: 'Amina K. Omar',
+        tagline: 'High-Altitude Expedition Leader & Female Porter Advocate',
+        locationKey: 'moshi',
+        locationName: 'Moshi / Kilimanjaro Base',
+        summitsCount: 112,
+        rating: 5.0,
+        reviewCount: 224,
+        mountains: ['Kilimanjaro Uhuru Peak', 'Mount Meru', 'Mt. Kenya'],
+        specialtyKey: 'kilimanjaro-machame',
+        image: 'assets/super_guide_joseph_1790676078336.png',
+        certifications: ['Kilimanjaro National Park Lead Guide', 'Wilderness First Responder', 'AIARE 1'],
+        bio: 'Over 11 years leading high-altitude summit pushes on Kilimanjaro and Mt. Meru. Champions fair wages and professional training for East African female porters and guides.',
+        dailyRate: '$220 / day',
+        isWomenGuide: true,
+        phone: '+255 754 123 456'
     }
 ];
 
+// Load persisted guides or fallback
+const savedGuides = localStorage.getItem('summit_guides');
+const initialGuides = savedGuides ? JSON.parse(savedGuides) : defaultGuides;
+
 // Sample Dataset for Local Hiking Groups
 const initialGroups = [
+    {
+        id: 'group-she-climbs',
+        name: 'She Climbs Kenya (All-Women Treks)',
+        tagline: 'Empowering Women-Only Summit Expeditions & Day Hikes',
+        locationKey: 'nairobi',
+        locationName: 'Nairobi & East Africa',
+        rating: 5.0,
+        reviewCount: 184,
+        nextTrip: 'Mt. Kenya All-Women Summit Traverse (Oct 24)',
+        image: 'assets/mt_kenya_hero_1790676045026.png',
+        pricePerPerson: 'KSh 26,500 / person (All-Inclusive)',
+        tags: ['100% Female Guides & Crew', 'Safe Space for Solo Women', 'Acclimatization Pace', 'Sanitary Care Support'],
+        description: 'Safe, supportive, and empowering mountain community connecting women hikers of all fitness levels. Guided by certified Kenyan female mountain leaders with all-female crew.',
+        womenOnly: true
+    },
     {
         id: 'group-nairobi-trekkers',
         name: 'Nairobi Alpine Trekkers Club',
@@ -137,7 +196,8 @@ const initialGroups = [
         image: 'assets/kilimanjaro_camp_1790676173285.png',
         pricePerPerson: 'KSh 3,500 / person (Bus + Park Fees)',
         tags: ['Group Transport Included', 'Nairobi Pickup', 'Acclimatization Warmups'],
-        description: 'Friendly community group organizing weekly weekend hikes across Aberdares, Rift Valley, and monthly Mt. Kenya summit expeditions.'
+        description: 'Friendly community group organizing weekly weekend hikes across Aberdares, Rift Valley, and monthly Mt. Kenya summit expeditions.',
+        womenOnly: false
     },
     {
         id: 'group-nanyuki-explorers',
@@ -151,9 +211,278 @@ const initialGroups = [
         image: 'assets/mt_kenya_hero_1790676045026.png',
         pricePerPerson: 'KSh 28,000 / person (Full Package)',
         tags: ['Mt. Kenya Specialists', 'Shared Guides & Porters', 'Gear Discounts'],
-        description: 'Local Nanyuki-based hiking community connecting climbers for shared group budget treks up Point Lenana & Kamweti routes.'
+        description: 'Local Nanyuki-based hiking community connecting climbers for shared group budget treks up Point Lenana & Kamweti routes.',
+        womenOnly: false
     }
 ];
+
+// Sample Dataset for Cabins & Campsites
+const initialAccommodations = [
+    {
+        id: 'stay-mackinders',
+        name: "Mackinder's Camp Alpine Cabins",
+        mountain: 'Mount Kenya',
+        mountainKey: 'mt-kenya',
+        type: 'cabin',
+        typeLabel: 'Alpine Cabin & Huts',
+        altitude: '4,300m',
+        route: 'Naro Moru Route (Teleki Valley)',
+        image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
+        description: 'Iconic stone alpine cabins in Teleki Valley facing Batian and Nelion. Features communal heated dining hall, bunk beds with foam mattresses, kitchen shelters, and running glacial stream water.',
+        amenities: ['Bunk Beds & Foam Mattresses', 'Heated Dining Hall', 'Glacial Stream Water', 'Cook Shelter', 'KWS Ranger Station'],
+        price: 'KSh 2,500',
+        priceSub: 'per climber / night'
+    },
+    {
+        id: 'stay-shiptons',
+        name: "Shipton's Camp High-Altitude Cabins",
+        mountain: 'Mount Kenya',
+        mountainKey: 'mt-kenya',
+        type: 'cabin',
+        typeLabel: 'Alpine Cabin & Huts',
+        altitude: '4,200m',
+        route: 'Sirimon Route (Northern Summit Base)',
+        image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+        description: 'Spectacular alpine huts situated directly beneath the sheer North Face of Batian and Nelion. Features large dining room, dorm bunks, solar lighting, and breathtaking peak views.',
+        amenities: ['Dorm Bunks', 'Solar Lighting', 'Dining Mess', 'Fresh Mountain Water', 'Batian Views'],
+        price: 'KSh 2,800',
+        priceSub: 'per climber / night'
+    },
+    {
+        id: 'stay-michaelson',
+        name: 'Lake Michaelson Wilderness Campsite',
+        mountain: 'Mount Kenya',
+        mountainKey: 'mt-kenya',
+        type: 'campsite',
+        typeLabel: 'Wild Campsite (Tent Sites)',
+        altitude: '3,980m',
+        route: 'Chogoria Route (Gorges Valley)',
+        image: 'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80',
+        description: 'Widely considered Kenya’s most scenic alpine campsite. Pitch your tent along the emerald waters of Lake Michaelson framed by dramatic 300m cliffs and waterfall cascades.',
+        amenities: ['Tent Pitching Ground', 'Pristine Lake Water', 'Rock Shelter Area', 'Unmatched Stargazing', 'Trout Stream'],
+        price: 'KSh 1,200',
+        priceSub: 'camping permit / night'
+    },
+    {
+        id: 'stay-old-moses',
+        name: 'Judmaier (Old Moses) Bunkhouse & Camp',
+        mountain: 'Mount Kenya',
+        mountainKey: 'mt-kenya',
+        type: 'cabin',
+        typeLabel: 'Bunkhouse & Meadow Camp',
+        altitude: '3,300m',
+        route: 'Sirimon Gate to Moorland',
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+        description: 'First night acclimatization shelter on Sirimon route. Comfortable 48-bed bunk dormitories with cedar dining tables and surrounding moorland campsite meadow with water taps.',
+        amenities: ['48 Bunk Dorms', 'Piped Mountain Water', 'Kitchen Fireplace', 'Camping Lawn', 'Mobile Network'],
+        price: 'KSh 2,000',
+        priceSub: 'bunk / night (Camping KSh 1,000)'
+    },
+    {
+        id: 'stay-chogoria-bandas',
+        name: 'Chogoria Bandas & Meru Log Cabins',
+        mountain: 'Mount Kenya',
+        mountainKey: 'mt-kenya',
+        type: 'cabin',
+        typeLabel: 'Forest Log Cabins',
+        altitude: '2,950m',
+        route: 'Chogoria Forest Edge',
+        image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80',
+        description: 'Charming timber log cabins nestled in bamboo and indigenous cedar forests. Features crackling indoor wood fireplaces, private bedrooms, hot water showers, and self-catering kitchen.',
+        amenities: ['Wood Fireplaces', 'Hot Showers', 'Private Rooms', 'Self-Catering Kitchen', 'Veranda Views'],
+        price: 'KSh 4,500',
+        priceSub: 'per banda cabin / night'
+    },
+    {
+        id: 'stay-horombo',
+        name: 'Horombo Huts & Alpine Campsite',
+        mountain: 'Mount Kilimanjaro',
+        mountainKey: 'kilimanjaro',
+        type: 'cabin',
+        typeLabel: 'Kilimanjaro A-Frame Cabins',
+        altitude: '3,720m',
+        route: 'Marangu Route',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+        description: 'Iconic Kilimanjaro A-frame timber huts accommodating up to 120 climbers, complete with separate dining halls, washrooms with running water, and dedicated tent platforms above the clouds.',
+        amenities: ['A-Frame Cabins', 'Mattresses & Pillows', 'Spacious Mess Halls', 'Running Tap Water', 'Tent Platforms'],
+        price: '$35',
+        priceSub: 'per night (Park Hut Permit)'
+    }
+];
+
+// Smart Affiliate Stores & Locations Engine
+const affiliateGearData = {
+    thermal: {
+        stores: [
+            {
+                name: 'Decathlon Kenya',
+                type: 'local',
+                price: 'KSh 3,800',
+                delivery: {
+                    nairobi: 'Same-Day Pickup (2 hrs)',
+                    nanyuki: 'Next-Day Courier (24h)',
+                    mombasa: 'Next-Day Courier',
+                    eldoret: 'Next-Day Courier',
+                    kampala: '2-3 Days Regional',
+                    international: '5-7 Days'
+                },
+                link: 'https://www.decathlon.co.ke/search?query=merino+wool+thermal',
+                badge: '⚡ Local Pickup Available'
+            },
+            {
+                name: 'Amazon Global Store',
+                type: 'amazon',
+                price: '$28 (KSh ~3,600)',
+                delivery: {
+                    nairobi: '3-5 Days Expedited',
+                    nanyuki: '4-6 Days Delivery',
+                    mombasa: '4-6 Days Delivery',
+                    eldoret: '4-6 Days Delivery',
+                    kampala: '5-7 Days Delivery',
+                    international: '2-4 Days Prime'
+                },
+                link: 'https://www.amazon.com/s?k=merino+wool+base+layer+hiking&tag=summitkenya-20',
+                badge: '🌐 Global Shipping'
+            }
+        ]
+    },
+    jacket: {
+        stores: [
+            {
+                name: 'Decathlon Kenya (Sarit)',
+                type: 'local',
+                price: 'KSh 12,000',
+                delivery: {
+                    nairobi: 'Instant Pickup / 2 hrs',
+                    nanyuki: 'Next-Day Courier',
+                    mombasa: 'Next-Day Courier',
+                    eldoret: 'Next-Day Courier',
+                    kampala: '2-3 Days Regional',
+                    international: '5-7 Days'
+                },
+                link: 'https://www.decathlon.co.ke/search?query=trekking+down+jacket',
+                badge: '⭐ Official Partner'
+            },
+            {
+                name: 'Nanyuki Gate Outfitter',
+                type: 'local',
+                price: 'Rent: KSh 1,200/day',
+                delivery: {
+                    nairobi: '1 Day Courier',
+                    nanyuki: 'Instant Gate Pickup (1 hr)',
+                    mombasa: '2 Days Delivery',
+                    eldoret: '2 Days Delivery',
+                    kampala: '3 Days Delivery',
+                    international: 'Rent on Arrival'
+                },
+                link: 'https://summitconnect.co.ke/#gear',
+                badge: '📍 Park Gate Pickup'
+            }
+        ]
+    },
+    shell: {
+        stores: [
+            {
+                name: 'Decathlon Kenya',
+                type: 'local',
+                price: 'KSh 9,500',
+                delivery: {
+                    nairobi: 'Same-Day (2-3 hrs)',
+                    nanyuki: 'Next-Day Courier',
+                    mombasa: 'Next-Day Courier',
+                    eldoret: 'Next-Day Courier',
+                    kampala: '2-3 Days',
+                    international: '5-7 Days'
+                },
+                link: 'https://www.decathlon.co.ke/search?query=waterproof+jacket+mh500',
+                badge: '⚡ In Stock'
+            },
+            {
+                name: 'Amazon Outdoor Store',
+                type: 'amazon',
+                price: '$79 (KSh ~10,200)',
+                delivery: {
+                    nairobi: '3-5 Days Expedited',
+                    nanyuki: '4-6 Days Delivery',
+                    mombasa: '4-6 Days Delivery',
+                    eldoret: '4-6 Days Delivery',
+                    kampala: '5-7 Days Delivery',
+                    international: '2-3 Days Prime'
+                },
+                link: 'https://www.amazon.com/s?k=waterproof+hiking+rain+jacket+packable&tag=summitkenya-20',
+                badge: '🌐 Global Shipping'
+            }
+        ]
+    },
+    boots: {
+        stores: [
+            {
+                name: 'Decathlon Kenya (Two Rivers)',
+                type: 'local',
+                price: 'KSh 8,500',
+                delivery: {
+                    nairobi: 'Same-Day Pickup (2 hrs)',
+                    nanyuki: 'Next-Day Delivery',
+                    mombasa: 'Next-Day Delivery',
+                    eldoret: 'Next-Day Delivery',
+                    kampala: '2-3 Days',
+                    international: '5-7 Days'
+                },
+                link: 'https://www.decathlon.co.ke/search?query=quechua+mh500+hiking+boots',
+                badge: '⚡ Top Seller'
+            },
+            {
+                name: 'Amazon Salomon/Columbia',
+                type: 'amazon',
+                price: '$95 (KSh ~12,300)',
+                delivery: {
+                    nairobi: '3-5 Days Expedited',
+                    nanyuki: '4-6 Days Delivery',
+                    mombasa: '4-6 Days Delivery',
+                    eldoret: '4-6 Days Delivery',
+                    kampala: '5-7 Days Delivery',
+                    international: '2-3 Days Prime'
+                },
+                link: 'https://www.amazon.com/s?k=waterproof+hiking+boots+ankle+support&tag=summitkenya-20',
+                badge: '🌐 International Brands'
+            }
+        ]
+    },
+    headlamp: {
+        stores: [
+            {
+                name: 'Decathlon Kenya',
+                type: 'local',
+                price: 'KSh 2,500',
+                delivery: {
+                    nairobi: 'Same-Day (2-3 hrs)',
+                    nanyuki: 'Next-Day Delivery',
+                    mombasa: 'Next-Day Delivery',
+                    eldoret: 'Next-Day Delivery',
+                    kampala: '2-3 Days',
+                    international: '5-7 Days'
+                },
+                link: 'https://www.decathlon.co.ke/search?query=forclaz+headlamp+trek',
+                badge: '⚡ Same-Day'
+            },
+            {
+                name: 'Amazon Petzl/Black Diamond',
+                type: 'amazon',
+                price: '$24 (KSh ~3,100)',
+                delivery: {
+                    nairobi: '3-5 Days Expedited',
+                    nanyuki: '4-6 Days Delivery',
+                    mombasa: '4-6 Days Delivery',
+                    eldoret: '4-6 Days Delivery',
+                    kampala: '5-7 Days Delivery',
+                    international: '1-2 Days Prime'
+                },
+                link: 'https://www.amazon.com/s?k=petzl+headlamp+300+lumens&tag=summitkenya-20',
+                badge: '🌐 Amazon Choice'
+            }
+        ]
+    }
+};
 
 // Local Kenya Gear Shops & Catalogs
 const initialShops = [
@@ -272,7 +601,9 @@ let state = {
     guides: [...initialGuides],
     groups: [...initialGroups],
     shops: [...initialShops],
+    accommodations: [...initialAccommodations],
     activeStoryFilter: 'all',
+    activeAccomFilter: 'all',
     directoryMode: 'guides',
     activeRouteKey: 'sirimon-chogoria',
     darkMode: false
@@ -284,9 +615,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileNav();
     renderStories();
     renderDirectory();
+    renderAccommodations();
     renderLocalShops();
     renderRouteDetails(state.activeRouteKey);
+    updateAllAffiliateLinks();
     initEventListeners();
+    initAccommodationsListeners();
+    initGuideDashboard();
 
     if (window.location.hash.startsWith('#store=')) {
         const shopId = window.location.hash.split('=')[1];
@@ -358,9 +693,107 @@ function renderStories() {
 }
 
 // Render Directory (Super Guides OR Hiking Groups)
+// Render Directory (Super Guides, Hiking Groups, OR Women-Led Treks)
 function renderDirectory(filterText = '', filterLoc = 'all') {
     const grid = document.getElementById('directoryGrid');
     if (!grid) return;
+
+    if (state.directoryMode === 'women' || filterLoc === 'women-only') {
+        const filteredGuides = state.guides.filter(g => {
+            const matchesText = g.name.toLowerCase().includes(filterText.toLowerCase()) || g.bio.toLowerCase().includes(filterText.toLowerCase());
+            return g.isWomenGuide && matchesText;
+        });
+
+        const filteredGroups = state.groups.filter(grp => {
+            const matchesText = grp.name.toLowerCase().includes(filterText.toLowerCase()) || grp.description.toLowerCase().includes(filterText.toLowerCase());
+            return grp.womenOnly && matchesText;
+        });
+
+        let html = '';
+
+        if (filteredGuides.length > 0) {
+            html += filteredGuides.map(guide => `
+                <div class="guide-card" style="border-color: rgba(236, 72, 153, 0.4);">
+                    <div class="women-guide-badge">
+                        <i class="fa-solid fa-venus"></i> 🌸 Verified Female Alpine Guide
+                    </div>
+                    <div class="guide-header-row">
+                        <div class="guide-avatar-wrap">
+                            <img src="${guide.image}" alt="${guide.name}" class="guide-avatar">
+                            <div class="super-badge" style="background:#ec4899;"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <div class="guide-info-main">
+                            <h3>${guide.name} <i class="fa-solid fa-circle-check guide-verified-icon" style="color:#ec4899;"></i></h3>
+                            <div class="guide-tagline">${guide.tagline}</div>
+                            <div class="guide-rating-row">
+                                <span class="stars"><i class="fa-solid fa-star"></i> ${guide.rating}</span>
+                                <span style="color: var(--text-muted);">(${guide.reviewCount} reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-summit-pill" style="background: rgba(236,72,153,0.08); color: #be185d; border-color: rgba(236,72,153,0.2);">
+                        <i class="fa-solid fa-award"></i> ${guide.summitsCount} Verified Summits • Female Expedition Leader
+                    </div>
+
+                    <p style="font-size:0.88rem; color:var(--text-body); margin-bottom:12px;">${guide.bio}</p>
+
+                    <div class="guide-tags">
+                        <span class="guide-tag women-guide-tag"><i class="fa-solid fa-shield-heart"></i> Solo Female Friendly</span>
+                        <span class="guide-tag"><i class="fa-solid fa-location-dot"></i> ${guide.locationName}</span>
+                        ${guide.mountains.map(m => `<span class="guide-tag">${m}</span>`).join('')}
+                    </div>
+
+                    <div class="guide-action-row">
+                        <button class="btn btn-outline" onclick="openGuideModal('${guide.id}')">View Profile</button>
+                        <button class="btn btn-primary" style="background:linear-gradient(135deg,#ec4899,#be185d); border:none;" onclick="openGuideModal('${guide.id}', true)">Book Female Guide</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        if (filteredGroups.length > 0) {
+            html += filteredGroups.map(grp => `
+                <div class="guide-card" style="border-color: rgba(236, 72, 153, 0.4);">
+                    <div class="women-guide-badge" style="background:linear-gradient(135deg,rgba(236,72,153,0.15),rgba(190,24,93,0.15));">
+                        <i class="fa-solid fa-people-roof"></i> 🌸 All-Women Group Trek & Sisterhood
+                    </div>
+                    <div class="guide-header-row">
+                        <div class="guide-avatar-wrap">
+                            <img src="${grp.image}" alt="${grp.name}" class="guide-avatar">
+                            <div class="super-badge" style="background: #ec4899;"><i class="fa-solid fa-users"></i></div>
+                        </div>
+                        <div class="guide-info-main">
+                            <h3>${grp.name}</h3>
+                            <div class="guide-tagline">${grp.tagline}</div>
+                            <div class="guide-rating-row">
+                                <span class="stars"><i class="fa-solid fa-star"></i> ${grp.rating}</span>
+                                <span style="color: var(--text-muted);">(${grp.reviewCount} reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-summit-pill" style="background: rgba(236,72,153,0.08); color: #be185d; border-color: rgba(236,72,153,0.2);">
+                        <i class="fa-solid fa-calendar-day"></i> Next Trek: ${grp.nextTrip}
+                    </div>
+
+                    <p style="font-size: 0.88rem; color: var(--text-body); margin-bottom: 14px;">${grp.description}</p>
+
+                    <div class="guide-tags">
+                        ${grp.tags.map(t => `<span class="guide-tag women-guide-tag"><i class="fa-solid fa-check"></i> ${t}</span>`).join('')}
+                    </div>
+
+                    <div class="guide-action-row">
+                        <button class="btn btn-outline" onclick="openGroupModal('${grp.id}')">Group Info</button>
+                        <button class="btn btn-primary" style="background:linear-gradient(135deg,#ec4899,#be185d); border:none;" onclick="openGroupModal('${grp.id}', true)">Join All-Women Trek</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        grid.innerHTML = html || '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">No women-only treks matching your search.</div>';
+        return;
+    }
 
     if (state.directoryMode === 'guides') {
         const filtered = state.guides.filter(g => {
@@ -391,6 +824,7 @@ function renderDirectory(filterText = '', filterLoc = 'all') {
                 </div>
 
                 <div class="guide-tags">
+                    ${guide.isWomenGuide ? '<span class="guide-tag women-guide-tag"><i class="fa-solid fa-venus"></i> 🌸 Female Guide</span>' : ''}
                     <span class="guide-tag"><i class="fa-solid fa-location-dot"></i> ${guide.locationName}</span>
                     ${guide.mountains.map(m => `<span class="guide-tag">${m}</span>`).join('')}
                 </div>
@@ -433,6 +867,7 @@ function renderDirectory(filterText = '', filterLoc = 'all') {
                 <p style="font-size: 0.88rem; color: var(--text-body); margin-bottom: 14px;">${grp.description}</p>
 
                 <div class="guide-tags">
+                    ${grp.womenOnly ? '<span class="guide-tag women-guide-tag"><i class="fa-solid fa-venus"></i> 🌸 All-Women Group</span>' : ''}
                     ${grp.tags.map(t => `<span class="guide-tag"><i class="fa-solid fa-check" style="color: var(--primary);"></i> ${t}</span>`).join('')}
                 </div>
 
@@ -784,18 +1219,28 @@ function initEventListeners() {
         showToast(state.darkMode ? 'Switched to Dark Mode' : 'Switched to Clean Light Mode');
     });
 
-    // Mode Switcher
+    // Mode Switcher (Guides vs Groups vs Women-Only)
+    const updateDirectoryTabStyles = (mode) => {
+        document.getElementById('showGuidesTab')?.classList.toggle('active', mode === 'guides');
+        document.getElementById('showGroupsTab')?.classList.toggle('active', mode === 'groups');
+        document.getElementById('showWomenTab')?.classList.toggle('active', mode === 'women');
+    };
+
     document.getElementById('showGuidesTab')?.addEventListener('click', () => {
         state.directoryMode = 'guides';
-        document.getElementById('showGuidesTab').classList.add('active');
-        document.getElementById('showGroupsTab').classList.remove('active');
+        updateDirectoryTabStyles('guides');
         renderDirectory();
     });
 
     document.getElementById('showGroupsTab')?.addEventListener('click', () => {
         state.directoryMode = 'groups';
-        document.getElementById('showGroupsTab').classList.add('active');
-        document.getElementById('showGuidesTab').classList.remove('active');
+        updateDirectoryTabStyles('groups');
+        renderDirectory();
+    });
+
+    document.getElementById('showWomenTab')?.addEventListener('click', () => {
+        state.directoryMode = 'women';
+        updateDirectoryTabStyles('women');
         renderDirectory();
     });
 
@@ -809,11 +1254,17 @@ function initEventListeners() {
         });
     });
 
-    // Search Input
+    // Search Input & Filter
     const guideSearchInput = document.getElementById('guideSearchInput');
     const guideSpecialtyFilter = document.getElementById('guideSpecialtyFilter');
     if (guideSearchInput && guideSpecialtyFilter) {
-        const filterHandler = () => renderDirectory(guideSearchInput.value, guideSpecialtyFilter.value);
+        const filterHandler = () => {
+            if (guideSpecialtyFilter.value === 'women-only') {
+                state.directoryMode = 'women';
+                updateDirectoryTabStyles('women');
+            }
+            renderDirectory(guideSearchInput.value, guideSpecialtyFilter.value);
+        };
         guideSearchInput.addEventListener('input', filterHandler);
         guideSpecialtyFilter.addEventListener('change', filterHandler);
     }
@@ -1129,4 +1580,386 @@ function initMonetizationListeners() {
 document.addEventListener('DOMContentLoaded', () => {
     initMonetizationListeners();
 });
+
+/* ==========================================================================
+   SMART AFFILIATE STORES & LOCATION DELIVERY CALCULATOR
+   ========================================================================== */
+function updateAllAffiliateLinks() {
+    const locSelect = document.getElementById('userLocationSelect');
+    const userLoc = locSelect ? locSelect.value : 'nairobi';
+
+    Object.keys(affiliateGearData).forEach(itemKey => {
+        const item = affiliateGearData[itemKey];
+        const container = document.getElementById(`aff-${itemKey}`);
+        if (!container) return;
+
+        container.innerHTML = item.stores.map((store, idx) => {
+            const deliveryTime = store.delivery[userLoc] || store.delivery['nairobi'];
+            const isFastest = idx === 0 && (userLoc === 'nairobi' || userLoc === 'nanyuki');
+            const isAmazon = store.type === 'amazon';
+
+            return `
+                <div class="aff-store-row">
+                    <div class="aff-store-info">
+                        <i class="${isAmazon ? 'fa-brands fa-amazon' : 'fa-solid fa-store'}" style="color:${isAmazon ? '#ff9900' : 'var(--primary)'};"></i>
+                        <span>${store.name}</span>
+                        <span class="aff-delivery-badge ${isFastest ? 'fastest' : ''}">
+                            <i class="${isFastest ? 'fa-solid fa-bolt' : 'fa-solid fa-truck-fast'}"></i> ${deliveryTime}
+                        </span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-weight:700; font-size:0.85rem; color:var(--text-heading);">${store.price}</span>
+                        <a href="${store.link}" target="_blank" rel="noopener noreferrer" class="aff-buy-btn ${isAmazon ? 'amazon' : ''}">
+                            Buy <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    });
+}
+
+/* ==========================================================================
+   CABINS & WILD CAMPSITES ACCOMMODATIONS
+   ========================================================================== */
+function renderAccommodations(filter = 'all') {
+    const grid = document.getElementById('accommodationsGrid');
+    if (!grid) return;
+
+    state.activeAccomFilter = filter;
+    document.querySelectorAll('.acc-filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
+
+    const filtered = state.accommodations.filter(acc => {
+        if (filter === 'all') return true;
+        if (filter === 'cabin') return acc.type === 'cabin';
+        if (filter === 'campsite') return acc.type === 'campsite';
+        if (filter === 'mt-kenya') return acc.mountainKey === 'mt-kenya';
+        if (filter === 'kilimanjaro') return acc.mountainKey === 'kilimanjaro';
+        return true;
+    });
+
+    grid.innerHTML = filtered.map(acc => `
+        <div class="acc-card">
+            <div class="acc-image-wrap">
+                <img src="${acc.image}" alt="${acc.name}" class="acc-image">
+                <span class="acc-type-badge ${acc.type}">
+                    <i class="${acc.type === 'cabin' ? 'fa-solid fa-house-chimney' : 'fa-solid fa-tent'}"></i> ${acc.typeLabel}
+                </span>
+                <span class="acc-altitude-badge"><i class="fa-solid fa-mountain"></i> ${acc.altitude}</span>
+            </div>
+            <div class="acc-content">
+                <div class="acc-mountain-tag">${acc.mountain} • ${acc.route}</div>
+                <h3 class="acc-title">${acc.name}</h3>
+                <p class="acc-desc">${acc.description}</p>
+                <div class="acc-amenities">
+                    ${acc.amenities.map(a => `<span class="acc-amenity-tag"><i class="fa-solid fa-check" style="color:var(--primary);"></i> ${a}</span>`).join('')}
+                </div>
+                <div class="acc-footer">
+                    <div class="acc-price-wrap">
+                        <span class="acc-price-amount">${acc.price}</span>
+                        <span class="acc-price-sub">${acc.priceSub}</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="openAccommodationBookingModal('${acc.id}')">
+                        <i class="fa-solid fa-bed"></i> Reserve Bunk / Pitch
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function initAccommodationsListeners() {
+    document.querySelectorAll('.acc-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            renderAccommodations(btn.dataset.filter);
+        });
+    });
+
+    // Close Accom modal
+    document.getElementById('closeAccomModal')?.addEventListener('click', () => {
+        document.getElementById('accommodationBookingModal').classList.remove('active');
+    });
+    document.getElementById('cancelAccomBooking')?.addEventListener('click', () => {
+        document.getElementById('accommodationBookingModal').classList.remove('active');
+    });
+
+    // Date change updates summary
+    const updateSummary = () => {
+        const stayId = document.getElementById('ab_stayId').value;
+        const stay = state.accommodations.find(a => a.id === stayId);
+        if (!stay) return;
+
+        const nights = parseInt(document.getElementById('ab_nights').value) || 1;
+        const guests = parseInt(document.getElementById('ab_guests').value) || 1;
+        const summaryBox = document.getElementById('ab_summaryBox');
+        if (summaryBox) {
+            summaryBox.innerHTML = `
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                    <span><strong>${stay.name}</strong> (${stay.altitude})</span>
+                    <span>${stay.price} ${stay.priceSub}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:0.85rem;">
+                    <span>${guests} Hikers × ${nights} Night(s)</span>
+                    <strong style="color:var(--primary); font-size:1rem;">Estimated Total: ${stay.price.startsWith('$') ? '$' + (parseInt(stay.price.replace('$','')) * nights * guests) : 'KSh ' + (parseInt(stay.price.replace(/[^0-9]/g,'')) * nights * guests).toLocaleString()}</strong>
+                </div>
+            `;
+        }
+    };
+
+    document.getElementById('ab_nights')?.addEventListener('input', updateSummary);
+    document.getElementById('ab_guests')?.addEventListener('input', updateSummary);
+
+    // Form submit
+    document.getElementById('accommodationBookingForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const stayId = document.getElementById('ab_stayId').value;
+        const stay = state.accommodations.find(a => a.id === stayId);
+        const name = document.getElementById('ab_name').value.trim();
+        const phone = document.getElementById('ab_phone').value.trim();
+        const date = document.getElementById('ab_date').value;
+        const nights = document.getElementById('ab_nights').value;
+        const guests = document.getElementById('ab_guests').value;
+
+        document.getElementById('accommodationBookingModal').classList.remove('active');
+        showToast(`🎉 Reservation confirmed for ${name}! ${guests} hikers at ${stay ? stay.name : 'Cabin'} on ${date}. KWS ranger checkpoint notification sent to ${phone}.`);
+    });
+}
+
+function openAccommodationBookingModal(stayId) {
+    const stay = state.accommodations.find(a => a.id === stayId);
+    if (!stay) return;
+
+    document.getElementById('ab_stayId').value = stay.id;
+    document.getElementById('ab_title').innerText = `Reserve ${stay.name}`;
+    document.getElementById('ab_subtitle').innerText = `${stay.mountain} • ${stay.route} (${stay.altitude})`;
+    document.getElementById('ab_typeDisplay').value = stay.typeLabel;
+
+    // Set default tomorrow date
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('ab_date').value = tomorrow.toISOString().split('T')[0];
+
+    const summaryBox = document.getElementById('ab_summaryBox');
+    if (summaryBox) {
+        summaryBox.innerHTML = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <span><strong>${stay.name}</strong> (${stay.altitude})</span>
+                <span>${stay.price} ${stay.priceSub}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:0.85rem;">
+                <span>2 Hikers × 1 Night</span>
+                <strong style="color:var(--primary); font-size:1rem;">Estimated Total: ${stay.price.startsWith('$') ? '$' + (parseInt(stay.price.replace('$','')) * 2) : 'KSh ' + (parseInt(stay.price.replace(/[^0-9]/g,'')) * 2).toLocaleString()}</strong>
+            </div>
+        `;
+    }
+
+    document.getElementById('accommodationBookingModal').classList.add('active');
+}
+
+/* ==========================================================================
+   GUIDE DASHBOARD & PROFILE MANAGER
+   ========================================================================== */
+function initGuideDashboard() {
+    const navBtn = document.getElementById('guideDashboardNavBtn');
+    const modal = document.getElementById('guideDashboardModal');
+    const closeBtn = document.getElementById('closeGuideDashboardModal');
+    const cancelBtn = document.getElementById('closeGuideDashboardBtn');
+    const selector = document.getElementById('guideProfileSelector');
+    const form = document.getElementById('guideDashboardForm');
+    const samplePhotoBtn = document.getElementById('gd_useSamplePhotoBtn');
+
+    if (!modal) return;
+
+    // Open/Close
+    navBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        populateGuideSelector();
+        loadGuideIntoForm(selector.value || state.guides[0].id);
+        modal.classList.add('active');
+    });
+
+    closeBtn?.addEventListener('click', () => modal.classList.remove('active'));
+    cancelBtn?.addEventListener('click', () => modal.classList.remove('active'));
+
+    function populateGuideSelector() {
+        if (!selector) return;
+        selector.innerHTML = `
+            ${state.guides.map(g => `<option value="${g.id}">${g.name} (${g.isWomenGuide ? '🌸 Female Guide' : 'Super Guide'})</option>`).join('')}
+            <option value="new">+ Create New Guide Profile</option>
+        `;
+    }
+
+    selector?.addEventListener('change', () => {
+        if (selector.value === 'new') {
+            form.reset();
+            document.getElementById('gd_name').value = '';
+            document.getElementById('gd_tagline').value = '';
+            document.getElementById('gd_photoUrl').value = 'assets/guide_sarah_1790676128232.png';
+            document.getElementById('gd_yearsExp').value = 5;
+            document.getElementById('gd_summits').value = 25;
+            document.getElementById('gd_dailyRate').value = '$170 / day';
+            document.getElementById('gd_isWomenGuide').checked = false;
+            updateLivePreview();
+        } else {
+            loadGuideIntoForm(selector.value);
+        }
+    });
+
+    function loadGuideIntoForm(guideId) {
+        const guide = state.guides.find(g => g.id === guideId);
+        if (!guide) return;
+
+        document.getElementById('gd_name').value = guide.name;
+        document.getElementById('gd_tagline').value = guide.tagline;
+        document.getElementById('gd_location').value = guide.locationKey || 'nanyuki';
+        document.getElementById('gd_dailyRate').value = guide.dailyRate || '$180 / day';
+        document.getElementById('gd_yearsExp').value = guide.yearsExp || 8;
+        document.getElementById('gd_summits').value = guide.summitsCount || 48;
+        document.getElementById('gd_isWomenGuide').checked = !!guide.isWomenGuide;
+        document.getElementById('gd_photoUrl').value = guide.image || 'assets/super_guide_joseph_1790676078336.png';
+        document.getElementById('gd_bio').value = guide.bio || '';
+        document.getElementById('gd_certifications').value = (guide.certifications || []).join(', ');
+
+        updateLivePreview();
+    }
+
+    function updateLivePreview() {
+        const previewWrap = document.getElementById('gdLiveCardPreview');
+        if (!previewWrap) return;
+
+        const name = document.getElementById('gd_name').value || 'Guide Name';
+        const tagline = document.getElementById('gd_tagline').value || 'Mountain Specialist';
+        const photo = document.getElementById('gd_photoUrl').value || 'assets/super_guide_joseph_1790676078336.png';
+        const summits = document.getElementById('gd_summits').value || 48;
+        const years = document.getElementById('gd_yearsExp').value || 8;
+        const isWomen = document.getElementById('gd_isWomenGuide').checked;
+        const locationVal = document.getElementById('gd_location').value;
+        const locationText = locationVal === 'nanyuki' ? 'Nanyuki Base' : locationVal === 'nairobi' ? 'Based in Nairobi' : locationVal === 'moshi' ? 'Kilimanjaro Base' : 'Rift Valley';
+
+        previewWrap.innerHTML = `
+            <div class="guide-card" style="${isWomen ? 'border-color: rgba(236,72,153,0.4);' : ''}">
+                ${isWomen ? '<div class="women-guide-badge"><i class="fa-solid fa-venus"></i> 🌸 Verified Female Alpine Guide</div>' : ''}
+                <div class="guide-header-row">
+                    <div class="guide-avatar-wrap">
+                        <img src="${photo}" alt="${name}" class="guide-avatar" onerror="this.src='assets/super_guide_joseph_1790676078336.png'">
+                        <div class="super-badge" style="${isWomen ? 'background:#ec4899;' : ''}"><i class="fa-solid fa-check"></i></div>
+                    </div>
+                    <div class="guide-info-main">
+                        <h3>${name} <i class="fa-solid fa-circle-check guide-verified-icon" style="${isWomen ? 'color:#ec4899;' : ''}"></i></h3>
+                        <div class="guide-tagline">${tagline}</div>
+                        <div class="guide-rating-row">
+                            <span class="stars"><i class="fa-solid fa-star"></i> 5.0</span>
+                            <span style="color: var(--text-muted);">(New / Verified)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-summit-pill" style="${isWomen ? 'background:rgba(236,72,153,0.08); color:#be185d; border-color:rgba(236,72,153,0.2);' : ''}">
+                    <i class="fa-solid fa-award"></i> ${summits} Verified Summits • ${years} Years Experience
+                </div>
+
+                <div class="guide-tags">
+                    ${isWomen ? '<span class="guide-tag women-guide-tag"><i class="fa-solid fa-shield-heart"></i> Solo Female Friendly</span>' : ''}
+                    <span class="guide-tag"><i class="fa-solid fa-location-dot"></i> ${locationText}</span>
+                    <span class="guide-tag">Mt. Kenya</span>
+                    <span class="guide-tag">Kilimanjaro</span>
+                </div>
+
+                <div class="guide-action-row">
+                    <button type="button" class="btn btn-outline" style="flex:1;">View Profile</button>
+                    <button type="button" class="btn btn-primary" style="${isWomen ? 'background:linear-gradient(135deg,#ec4899,#be185d); border:none;' : ''} flex:1;">Book Guide</button>
+                </div>
+            </div>
+        `;
+    }
+
+    // Bind real-time input preview
+    ['gd_name', 'gd_tagline', 'gd_photoUrl', 'gd_summits', 'gd_yearsExp', 'gd_location'].forEach(id => {
+        document.getElementById(id)?.addEventListener('input', updateLivePreview);
+    });
+    document.getElementById('gd_isWomenGuide')?.addEventListener('change', updateLivePreview);
+
+    // Sample Photo Toggle Button
+    const sampleAvatars = [
+        'assets/super_guide_joseph_1790676078336.png',
+        'assets/guide_sarah_1790676128232.png',
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80'
+    ];
+    let avatarIdx = 0;
+    samplePhotoBtn?.addEventListener('click', () => {
+        avatarIdx = (avatarIdx + 1) % sampleAvatars.length;
+        document.getElementById('gd_photoUrl').value = sampleAvatars[avatarIdx];
+        updateLivePreview();
+    });
+
+    // Form Submit (Save & Publish)
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const selectedId = selector.value;
+        const name = document.getElementById('gd_name').value.trim();
+        const tagline = document.getElementById('gd_tagline').value.trim();
+        const locationKey = document.getElementById('gd_location').value;
+        const dailyRate = document.getElementById('gd_dailyRate').value.trim();
+        const yearsExp = parseInt(document.getElementById('gd_yearsExp').value) || 8;
+        const summitsCount = parseInt(document.getElementById('gd_summits').value) || 48;
+        const isWomenGuide = document.getElementById('gd_isWomenGuide').checked;
+        const image = document.getElementById('gd_photoUrl').value.trim() || 'assets/super_guide_joseph_1790676078336.png';
+        const bio = document.getElementById('gd_bio').value.trim();
+        const certifications = document.getElementById('gd_certifications').value.split(',').map(c => c.trim()).filter(Boolean);
+
+        const locationName = locationKey === 'nanyuki' ? 'Nanyuki / Mt. Kenya Base' : locationKey === 'nairobi' ? 'Based in Nairobi' : locationKey === 'moshi' ? 'Moshi / Kilimanjaro Base' : 'Rift Valley / Nakuru';
+
+        if (selectedId === 'new') {
+            const newGuide = {
+                id: 'guide-' + Date.now(),
+                name,
+                tagline,
+                locationKey,
+                locationName,
+                summitsCount,
+                yearsExp,
+                rating: 5.0,
+                reviewCount: 1,
+                mountains: ['Mt. Kenya Point Lenana', 'Kilimanjaro'],
+                specialtyKey: 'mt-kenya-lenana',
+                image,
+                certifications: certifications.length ? certifications : ['KWS Licensed Mountain Guide', 'WFR'],
+                bio: bio || `${name} is an active East African mountain leader specializing in safe alpine ascents.`,
+                dailyRate,
+                isWomenGuide
+            };
+            state.guides.unshift(newGuide);
+        } else {
+            const guide = state.guides.find(g => g.id === selectedId);
+            if (guide) {
+                guide.name = name;
+                guide.tagline = tagline;
+                guide.locationKey = locationKey;
+                guide.locationName = locationName;
+                guide.summitsCount = summitsCount;
+                guide.yearsExp = yearsExp;
+                guide.dailyRate = dailyRate;
+                guide.isWomenGuide = isWomenGuide;
+                guide.image = image;
+                guide.bio = bio;
+                if (certifications.length) guide.certifications = certifications;
+            }
+        }
+
+        // Save to localStorage
+        try {
+            localStorage.setItem('summit_guides', JSON.stringify(state.guides));
+        } catch (err) {
+            console.error('Storage error', err);
+        }
+
+        renderDirectory();
+        modal.classList.remove('active');
+        showToast(`🎉 Guide Profile for "${name}" successfully updated & published live!`);
+    });
+}
+
 
