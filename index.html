@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Paystack Payment SDK -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -30,6 +32,7 @@
                 <a href="#acclimatization" class="nav-link">Acclimatization Ladder</a>
                 <a href="#gear" class="nav-link">Gear & Decathlon</a>
                 <a href="#quiz" class="nav-link">Readiness Quiz</a>
+                <a href="#" class="nav-link nav-link-cta" id="listServicesNavBtn">🏔️ List Your Services</a>
             </nav>
 
             <div class="nav-actions">
@@ -469,6 +472,27 @@
         </section>
     </main>
 
+    <!-- Monetization CTA Banner -->
+    <section class="monetize-banner" id="monetize">
+        <div class="monetize-inner">
+            <div class="monetize-text">
+                <div class="monetize-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div>
+                    <h3>Are You a Guide, Group Leader or Gear Shop?</h3>
+                    <p>Join SummitConnect's verified partner network. Get bookings, earn commissions and reach 1,400+ active climbers.</p>
+                </div>
+            </div>
+            <div class="monetize-actions">
+                <button class="btn btn-gold" id="openListServicesBtn">
+                    <i class="fa-solid fa-star"></i> Apply for Verified Listing
+                </button>
+                <a href="https://wa.me/254700000999?text=Hi%2C%20I%27d%20like%20to%20list%20my%20services%20on%20SummitConnect" target="_blank" class="btn btn-outline-white">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp Us
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
@@ -516,6 +540,12 @@
             <p>&copy; 2026 SummitConnect Alpine Platform. Built with passion for mountain lovers.</p>
         </div>
     </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/254700000999?text=Hi%20SummitConnect%2C%20I%20need%20help%20with%20a%20mountain%20trek!" target="_blank" class="whatsapp-fab" id="whatsappFab" title="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="whatsapp-label">Chat with us</span>
+    </a>
 
     <!-- MODALS -->
 
@@ -609,6 +639,117 @@
 
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ============ LIST YOUR SERVICES MODAL ============ -->
+    <div class="modal-backdrop" id="listServicesModal">
+        <div class="modal-card large-modal">
+            <button class="modal-close" id="closeListServicesModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body">
+                <div style="text-align:center; margin-bottom:28px;">
+                    <div class="modal-icon-badge"><i class="fa-solid fa-briefcase"></i></div>
+                    <h2 style="font-size:1.8rem; margin-bottom:8px;">List Your Services on SummitConnect</h2>
+                    <p style="color:var(--text-muted);">Join our verified partner network and start receiving bookings from 1,400+ active climbers across East Africa.</p>
+                </div>
+
+                <div class="pricing-tiers">
+                    <div class="pricing-card" data-plan="free">
+                        <div class="plan-name">Free Listing</div>
+                        <div class="plan-price">KSh 0<span>/mo</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fa-solid fa-check"></i> Basic profile listing</li>
+                            <li><i class="fa-solid fa-check"></i> Up to 3 photos</li>
+                            <li class="faded"><i class="fa-solid fa-xmark"></i> No verified badge</li>
+                            <li class="faded"><i class="fa-solid fa-xmark"></i> No priority placement</li>
+                        </ul>
+                        <button class="btn btn-outline plan-select-btn" data-plan="free" data-amount="0">Get Started Free</button>
+                    </div>
+                    <div class="pricing-card popular" data-plan="pro">
+                        <div class="popular-badge">Most Popular</div>
+                        <div class="plan-name">Pro Guide</div>
+                        <div class="plan-price">KSh 2,500<span>/mo</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fa-solid fa-check"></i> ✅ Verified badge on profile</li>
+                            <li><i class="fa-solid fa-check"></i> Top search placement</li>
+                            <li><i class="fa-solid fa-check"></i> Booking inquiry form</li>
+                            <li><i class="fa-solid fa-check"></i> WhatsApp direct link</li>
+                        </ul>
+                        <button class="btn btn-primary plan-select-btn" data-plan="pro" data-amount="2500">Choose Pro — Pay with M-Pesa</button>
+                    </div>
+                    <div class="pricing-card" data-plan="elite">
+                        <div class="plan-name">Elite / Group</div>
+                        <div class="plan-price">KSh 5,000<span>/mo</span></div>
+                        <ul class="plan-features">
+                            <li><i class="fa-solid fa-check"></i> Everything in Pro</li>
+                            <li><i class="fa-solid fa-check"></i> Homepage spotlight feature</li>
+                            <li><i class="fa-solid fa-check"></i> Trek event listings</li>
+                            <li><i class="fa-solid fa-check"></i> Analytics dashboard</li>
+                        </ul>
+                        <button class="btn btn-outline plan-select-btn" data-plan="elite" data-amount="5000">Choose Elite — Pay with M-Pesa</button>
+                    </div>
+                </div>
+
+                <hr style="margin:28px 0; border-color:var(--border-color);">
+
+                <form id="listServicesForm">
+                    <h3 style="margin-bottom:16px;"><i class="fa-solid fa-user-pen" style="color:var(--primary);"></i> Your Details</h3>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="ls_name" required placeholder="e.g. Joseph Njuguna" class="guide-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone / M-Pesa Number *</label>
+                            <input type="tel" id="ls_phone" required placeholder="e.g. 0712 345 678" class="guide-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="ls_email" required placeholder="you@email.com" class="guide-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Type *</label>
+                            <select id="ls_type" class="guide-select" required>
+                                <option value="">Select your service type...</option>
+                                <option value="guide">Super Guide (Private Treks)</option>
+                                <option value="group">Hiking Group / Club</option>
+                                <option value="shop">Gear Shop / Outfitter</option>
+                            </select>
+                        </div>
+                        <div class="form-group span-2">
+                            <label>Location & Area of Operation</label>
+                            <input type="text" id="ls_location" placeholder="e.g. Nanyuki / Mt. Kenya, Nairobi CBD" class="guide-input">
+                        </div>
+                        <div class="form-group span-2">
+                            <label>Short Bio / Description *</label>
+                            <textarea id="ls_bio" rows="3" required class="guide-input" placeholder="Tell climbers about your experience, certifications, and specialties..."></textarea>
+                        </div>
+                    </div>
+                    <input type="hidden" id="ls_selectedPlan" value="free">
+                    <input type="hidden" id="ls_selectedAmount" value="0">
+                    <div class="form-actions" style="margin-top:20px;">
+                        <button type="button" class="btn btn-outline" id="cancelListServices">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PAYSTACK PAYMENT MODAL ============ -->
+    <div class="modal-backdrop" id="paystackModal">
+        <div class="modal-card" style="max-width:480px;">
+            <button class="modal-close" id="closePaystackModal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body" style="text-align:center;">
+                <div class="modal-icon-badge" style="background: linear-gradient(135deg,#00c3ff,#00b09b); color:#fff;"><i class="fa-solid fa-mobile-screen"></i></div>
+                <h2 style="font-size:1.6rem; margin:16px 0 8px;">Pay with M-Pesa or Card</h2>
+                <p style="color:var(--text-muted); margin-bottom:24px;">Powered by Paystack — Safe, fast and secure payments in Kenya.</p>
+                <div id="paystackPlanSummary" style="background:var(--bg-main); border:1px solid var(--border-color); border-radius:12px; padding:16px; margin-bottom:24px; text-align:left;"></div>
+                <button class="btn btn-primary" id="launchPaystackBtn" style="width:100%; padding:16px; font-size:1rem;">
+                    <i class="fa-solid fa-lock"></i> Pay Securely with Paystack
+                </button>
+                <p style="margin-top:12px; font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-shield-halved"></i> 256-bit SSL encryption. Your payment is secure.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom JavaScript -->
     <script src="app.js"></script>

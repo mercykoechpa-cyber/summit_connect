@@ -1544,3 +1544,226 @@ canvas#routeElevationCanvas {
     .hero-stats { grid-template-columns: 1fr; }
     .mode-switch-row { flex-direction: column; }
 }
+
+/* ==========================================================================
+   MONETIZATION FEATURES: WhatsApp FAB, Pricing, Banners, Paystack
+   ========================================================================== */
+
+/* --- WhatsApp Floating Action Button --- */
+.whatsapp-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #25d366;
+    color: #fff;
+    border-radius: 50px;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fabBounce 2.5s ease-in-out infinite;
+}
+.whatsapp-fab i { font-size: 1.4rem; }
+.whatsapp-fab:hover {
+    background: #128c7e;
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.55);
+    color: #fff;
+}
+.whatsapp-label { white-space: nowrap; }
+@keyframes fabBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+@media (max-width: 600px) {
+    .whatsapp-fab { padding: 14px; border-radius: 50%; bottom: 20px; right: 16px; }
+    .whatsapp-label { display: none; }
+}
+
+/* --- Monetize CTA Banner --- */
+.monetize-banner {
+    background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #0c7a6e 100%);
+    padding: 56px 24px;
+    position: relative;
+    overflow: hidden;
+}
+.monetize-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.monetize-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+.monetize-text {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    min-width: 280px;
+}
+.monetize-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+}
+.monetize-text h3 { color: #fff; font-size: 1.4rem; margin-bottom: 6px; }
+.monetize-text p { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+.monetize-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+/* Gold CTA Button */
+.btn-gold {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(245,158,11,0.4);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,158,11,0.5); }
+
+/* Outline White Button */
+.btn-outline-white {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 12px 22px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; color: #fff; }
+
+/* Nav CTA Link */
+.nav-link-cta {
+    color: var(--accent-gold) !important;
+    font-weight: 700 !important;
+    border: 1.5px solid var(--accent-gold);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px !important;
+    transition: var(--transition);
+}
+.nav-link-cta:hover {
+    background: var(--accent-gold);
+    color: #fff !important;
+}
+
+/* --- Pricing Tiers --- */
+.pricing-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 8px;
+}
+.pricing-card {
+    background: var(--bg-main);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    transition: var(--transition);
+}
+.pricing-card:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.pricing-card.popular {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(15,118,110,0.12);
+}
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+}
+.plan-name { font-weight: 700; font-size: 1rem; color: var(--text-heading); }
+.plan-price { font-size: 1.5rem; font-weight: 800; color: var(--primary); line-height: 1; }
+.plan-price span { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.plan-features li { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: var(--text-body); }
+.plan-features li i.fa-check { color: var(--primary); font-size: 0.75rem; }
+.plan-features li i.fa-xmark { color: var(--text-muted); font-size: 0.75rem; }
+.plan-features li.faded { color: var(--text-muted); }
+.plan-select-btn { width: 100%; margin-top: 8px; }
+.plan-select-btn.active-plan { background: var(--primary) !important; color: #fff !important; border-color: var(--primary) !important; }
+
+/* --- Form Grid 2 --- */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.form-grid-2 .span-2 { grid-column: span 2; }
+@media (max-width: 640px) {
+    .form-grid-2 { grid-template-columns: 1fr; }
+    .form-grid-2 .span-2 { grid-column: span 1; }
+    .pricing-tiers { grid-template-columns: 1fr; }
+    .monetize-inner { flex-direction: column; }
+    .monetize-actions { width: 100%; }
+    .monetize-actions .btn-gold,
+    .monetize-actions .btn-outline-white { width: 100%; justify-content: center; }
+}
+
+/* --- Modal Icon Badge --- */
+.modal-icon-badge {
+    width: 64px;
+    height: 64px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 12px;
+}
+

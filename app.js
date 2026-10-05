@@ -979,3 +979,154 @@ function showToast(message) {
         setTimeout(() => toast.remove(), 300);
     }, 4000);
 }
+
+/* ==========================================================================
+   MONETIZATION FEATURES: List Your Services, Paystack, WhatsApp
+   ========================================================================== */
+
+// -- Paystack config (replace with your real public key after signing up at paystack.com/ke) --
+const PAYSTACK_PUBLIC_KEY = 'pk_test_summitconnect_replace_with_real_key';
+
+// Plan metadata
+const PLANS = {
+    free:  { label: 'Free Listing',  amount: 0,    description: 'Basic profile listing — no payment needed.' },
+    pro:   { label: 'Pro Guide',     amount: 2500,  description: 'Verified badge + top placement. KSh 2,500/month.' },
+    elite: { label: 'Elite / Group', amount: 5000,  description: 'Full spotlight + trek event listings. KSh 5,000/month.' }
+};
+
+let currentPaystackPlan = 'free';
+let currentPaystackEmail = '';
+let currentPaystackName = '';
+
+// Open List Your Services modal
+function openListServicesModal() {
+    document.getElementById('listServicesModal').classList.add('active');
+}
+
+// Initialize all monetization event listeners
+function initMonetizationListeners() {
+
+    // Nav + CTA banner buttons open the modal
+    document.getElementById('listServicesNavBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openListServicesModal();
+    });
+    document.getElementById('openListServicesBtn')?.addEventListener('click', openListServicesModal);
+
+    // Close List Services modal
+    document.getElementById('closeListServicesModal')?.addEventListener('click', () => {
+        document.getElementById('listServicesModal').classList.remove('active');
+    });
+    document.getElementById('cancelListServices')?.addEventListener('click', () => {
+        document.getElementById('listServicesModal').classList.remove('active');
+    });
+
+    // Close Paystack modal
+    document.getElementById('closePaystackModal')?.addEventListener('click', () => {
+        document.getElementById('paystackModal').classList.remove('active');
+    });
+
+    // Pricing plan select buttons
+    document.querySelectorAll('.plan-select-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const plan = btn.dataset.plan;
+            const amount = parseInt(btn.dataset.amount);
+
+            // Highlight selected plan
+            document.querySelectorAll('.plan-select-btn').forEach(b => b.classList.remove('active-plan'));
+            btn.classList.add('active-plan');
+
+            // Store the selection in hidden inputs
+            document.getElementById('ls_selectedPlan').value = plan;
+            document.getElementById('ls_selectedAmount').value = amount;
+            currentPaystackPlan = plan;
+
+            // If free plan, just confirm — no payment
+            if (amount === 0) {
+                showToast('✅ Free plan selected. Fill in your details and submit below!');
+            } else {
+                showToast(`💳 ${PLANS[plan].label} selected — KSh ${amount.toLocaleString()}/month. Fill your details & submit to pay.`);
+            }
+        });
+    });
+
+    // Submit application form
+    document.getElementById('listServicesForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name    = document.getElementById('ls_name').value.trim();
+        const phone   = document.getElementById('ls_phone').value.trim();
+        const email   = document.getElementById('ls_email').value.trim();
+        const type    = document.getElementById('ls_type').value;
+        const plan    = document.getElementById('ls_selectedPlan').value || 'free';
+        const amount  = parseInt(document.getElementById('ls_selectedAmount').value) || 0;
+
+        if (!name || !phone || !email || !type) {
+            showToast('⚠️ Please fill in all required fields.');
+            return;
+        }
+
+        currentPaystackEmail = email;
+        currentPaystackName  = name;
+        currentPaystackPlan  = plan;
+
+        document.getElementById('listServicesModal').classList.remove('active');
+
+        if (amount === 0) {
+            // Free plan — show success toast, no payment
+            showToast(`🎉 Application received! We'll review and verify your listing within 24 hours, ${name}.`);
+        } else {
+            // Paid plan — open the Paystack payment modal
+            const planData = PLANS[plan];
+            document.getElementById('paystackPlanSummary').innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <span style="font-weight:700; font-size:1.05rem;">${planData.label}</span>
+                    <span style="font-size:1.2rem; font-weight:800; color:var(--primary);">KSh ${amount.toLocaleString()}</span>
+                </div>
+                <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:8px;">${planData.description}</p>
+                <div style="font-size:0.85rem; color:var(--text-muted);">
+                    <i class="fa-solid fa-user"></i> ${name} &nbsp;•&nbsp;
+                    <i class="fa-solid fa-envelope"></i> ${email} &nbsp;•&nbsp;
+                    <i class="fa-solid fa-mobile-screen"></i> ${phone}
+                </div>
+            `;
+            document.getElementById('paystackModal').classList.add('active');
+        }
+    });
+
+    // Launch Paystack payment
+    document.getElementById('launchPaystackBtn')?.addEventListener('click', () => {
+        const amount = parseInt(document.getElementById('ls_selectedAmount').value) || 0;
+        const plan   = PLANS[currentPaystackPlan];
+
+        // Paystack amounts are in kobo (KSh × 100)
+        const handler = PaystackPop.setup({
+            key:       PAYSTACK_PUBLIC_KEY,
+            email:     currentPaystackEmail,
+            amount:    amount * 100,
+            currency:  'KES',
+            ref:       'SC-' + Date.now(),
+            metadata: {
+                custom_fields: [
+                    { display_name: 'Name',  variable_name: 'name',  value: currentPaystackName },
+                    { display_name: 'Plan',  variable_name: 'plan',  value: plan.label }
+                ]
+            },
+            channels: ['card', 'mobile_money'],
+            callback: function(response) {
+                document.getElementById('paystackModal').classList.remove('active');
+                showToast(`🎉 Payment successful! Reference: ${response.reference}. Your verified listing will be live within 2 hours.`);
+            },
+            onClose: function() {
+                showToast('Payment cancelled. Your application is saved — complete payment anytime.');
+            }
+        });
+        handler.openIframe();
+    });
+}
+
+// Initialize monetization on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    initMonetizationListeners();
+});
+
